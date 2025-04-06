@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+
+Sitemap: https://你的用戶名.github.io/camping-website/sitemap.xml 

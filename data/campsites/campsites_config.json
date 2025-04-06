@@ -1,0 +1,106 @@
+{
+  "campsite_types": [
+    {
+      "id": "wooden",
+      "name": "木棧板營位",
+      "base_price": 1800,
+      "max_persons": 6,
+      "description": "本區營位均鋪設高品質木棧板，不怕下雨泥濘，提供舒適的露營體驗。每個營位均有獨立電源插座和LED照明。",
+      "facilities": ["獨立電源", "LED照明", "免費WiFi"],
+      "suitable_for": ["4-6人帳篷", "家庭露營", "新手露營"]
+    },
+    {
+      "id": "grass",
+      "name": "草地營位",
+      "base_price": 1500,
+      "max_persons": 4,
+      "description": "天然草皮營位，更貼近自然的露營體驗。營位寬敞平整，適合放置多種類型帳篷。",
+      "facilities": ["公共電源", "夜燈"],
+      "suitable_for": ["3-4人帳篷", "背包客", "自然愛好者"]
+    },
+    {
+      "id": "rv",
+      "name": "露營車營位",
+      "base_price": 2200,
+      "max_persons": 6,
+      "description": "專為露營車設計的加大號營位，配備專用水電接駁設施，方便露營車停靠使用。",
+      "facilities": ["專用水電接駁", "加大空間", "免費WiFi"],
+      "suitable_for": ["露營車", "拖車", "豪華露營"]
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone_a",
+      "name": "A區 - 木棧板區",
+      "description": "本區為全露營區內最優質的營位區域，每個營位均有專屬木棧板，不怕下雨泥濘，適合追求舒適露營體驗的露友。每個營位均有獨立電源插座和LED照明。",
+      "features": "獨立電源、LED照明、免費WiFi",
+      "location": "營區東側，靠近洗手間與交誼廳",
+      "campsites": [
+        "A01", "A02", "A03", "A04", "A05", "A06", "A07", "A08"
+      ],
+      "type": "wooden",
+      "color": "#2196F3"
+    },
+    {
+      "id": "zone_b",
+      "name": "B區 - 草地營位區",
+      "description": "天然草皮營位區，提供更貼近自然的露營體驗。營位寬敞平整，適合放置多種類型帳篷，周圍樹木環繞，遮陽效果良好。",
+      "features": "天然草皮、樹蔭遮陽、公共電源",
+      "location": "營區中央區域，鄰近烤肉區",
+      "campsites": [
+        "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10"
+      ],
+      "type": "grass",
+      "color": "#8BC34A"
+    },
+    {
+      "id": "zone_c",
+      "name": "C區 - 露營車專區",
+      "description": "專為露營車設計的區域，設有專用電源與自來水接駁，營位空間更大，方便露營車操作。配備完善的排水系統。",
+      "features": "專用水電接駁、加大空間、平整地面",
+      "location": "營區西側入口處，交通便利",
+      "campsites": [
+        "C01", "C02", "C03", "C04", "C05"
+      ],
+      "type": "rv",
+      "color": "#FF9800"
+    },
+    {
+      "id": "zone_d",
+      "name": "D區 - 河畔區",
+      "description": "鄰近小溪的特色營位，景觀優美，可聽溪水聲入眠。此區草地營位較為隱蔽，提供更私密的露營體驗。",
+      "features": "溪水景觀、私密空間、寧靜環境",
+      "location": "營區南側，鄰近小溪",
+      "campsites": [
+        "D01", "D02", "D03", "D04"
+      ],
+      "type": "grass",
+      "color": "#9C27B0"
+    }
+  ],
+  "price_adjustment": {
+    "weekdays": 1.0,
+    "weekends": 1.2,
+    "holidays": 1.5,
+    "low_season": 0.8,
+    "high_season": 1.2,
+    "extra_adult": 200,
+    "extra_child": 100,
+    "vehicle": 100
+  },
+  "maintenance": {
+    "checklist": [
+      "檢查木棧板狀況",
+      "檢查電源設施",
+      "草地修剪與維護",
+      "檢查排水系統",
+      "清潔營位區域",
+      "檢查照明設備"
+    ],
+    "schedule": {
+      "daily": ["清潔營位區域"],
+      "weekly": ["草地修剪與維護", "檢查照明設備"],
+      "monthly": ["檢查木棧板狀況", "檢查電源設施", "檢查排水系統"]
+    }
+  }
+} 

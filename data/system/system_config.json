@@ -1,0 +1,156 @@
+{
+  "roles": [
+    {
+      "id": "admin",
+      "name": "主管理員",
+      "description": "完整系統管理權限",
+      "permissions": [
+        "user:*",
+        "booking:*",
+        "campsite:*",
+        "report:*",
+        "system:*",
+        "customer:*"
+      ]
+    },
+    {
+      "id": "manager",
+      "name": "一般管理員",
+      "description": "預約管理與營區管理權限，無法進行系統設定",
+      "permissions": [
+        "user:view",
+        "booking:*",
+        "campsite:*",
+        "report:view",
+        "system:view",
+        "customer:*"
+      ]
+    },
+    {
+      "id": "reception",
+      "name": "前台人員",
+      "description": "僅能查看和處理預約相關業務",
+      "permissions": [
+        "user:view",
+        "booking:view",
+        "booking:create",
+        "booking:update",
+        "campsite:view",
+        "customer:view",
+        "customer:create",
+        "customer:update"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "id": "admin001",
+      "username": "admin",
+      "name": "寶山營主",
+      "email": "admin@example.com",
+      "role": "admin",
+      "status": "active",
+      "last_login": "2024-05-25 09:30:00"
+    },
+    {
+      "id": "mgr001",
+      "username": "staff01",
+      "name": "王小明",
+      "email": "staff01@example.com",
+      "role": "manager",
+      "status": "active",
+      "last_login": "2024-05-24 18:15:00"
+    },
+    {
+      "id": "rec001",
+      "username": "reception",
+      "name": "林小美",
+      "email": "reception@example.com",
+      "role": "reception",
+      "status": "active",
+      "last_login": "2024-05-25 08:45:00"
+    }
+  ],
+  "password_policy": {
+    "min_length": 8,
+    "require_uppercase": true,
+    "require_lowercase": true,
+    "require_numbers": true,
+    "require_special_chars": false,
+    "expiration_days": 90,
+    "history_count": 5,
+    "lockout_attempts": 5,
+    "lockout_minutes": 30
+  },
+  "notifications": {
+    "email": {
+      "enabled": true,
+      "provider": "smtp",
+      "from_address": "noreply@baoshan-camping.tw",
+      "from_name": "寶山葡萄藤露營區"
+    },
+    "sms": {
+      "enabled": true,
+      "provider": "twilio",
+      "sender_id": "BAOSHANCAMP"
+    },
+    "system": {
+      "admin_notification_recipients": ["admin@example.com"],
+      "error_notification_threshold": "warning",
+      "daily_summary_enabled": true,
+      "daily_summary_time": "21:00"
+    }
+  },
+  "backup": {
+    "auto_backup": {
+      "enabled": true,
+      "frequency": "weekly",
+      "time": "03:00",
+      "retention_days": 30,
+      "storage": "local",
+      "include_media": true
+    },
+    "manual_backup": {
+      "retention_days": 90,
+      "storage_options": ["local", "cloud"]
+    }
+  },
+  "security": {
+    "session_timeout_minutes": 30,
+    "api_rate_limit": 100,
+    "allowed_ip_ranges": ["127.0.0.1", "192.168.1.0/24"],
+    "cors_origins": ["https://baoshan-camping.tw"],
+    "ssl_enabled": true,
+    "audit_logging": {
+      "enabled": true,
+      "events": [
+        "user.login",
+        "user.logout",
+        "user.create",
+        "user.update",
+        "user.delete",
+        "booking.create",
+        "booking.update",
+        "booking.delete",
+        "campsite.create",
+        "campsite.update",
+        "campsite.delete",
+        "system.config_change"
+      ],
+      "retention_days": 365
+    }
+  },
+  "preferences": {
+    "language": "zh-TW",
+    "timezone": "Asia/Taipei",
+    "currency": "TWD",
+    "date_format": "YYYY-MM-DD",
+    "time_format": "HH:mm",
+    "default_page_size": 10,
+    "theme": {
+      "primary_color": "#4CAF50",
+      "secondary_color": "#2196F3",
+      "dark_mode": false
+    }
+  }
+} 

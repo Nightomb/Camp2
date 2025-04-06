@@ -1,0 +1,104 @@
+{
+  "customer_segments": [
+    {
+      "id": "new",
+      "name": "新客戶",
+      "description": "首次預訂的客戶",
+      "criteria": {
+        "bookings_count": 1,
+        "total_spent": "any"
+      }
+    },
+    {
+      "id": "regular",
+      "name": "常客",
+      "description": "已預訂2-5次的回頭客",
+      "criteria": {
+        "bookings_count": "2-5",
+        "total_spent": "any"
+      }
+    },
+    {
+      "id": "vip",
+      "name": "VIP客戶",
+      "description": "預訂6次以上或累計消費超過15,000元的忠實客戶",
+      "criteria": {
+        "bookings_count": "6+",
+        "total_spent": "15000+"
+      }
+    }
+  ],
+  "preferences_options": [
+    {
+      "id": "site_type",
+      "name": "喜好營位類型",
+      "options": ["木棧板營位", "草地營位", "露營車營位", "河畔營位"]
+    },
+    {
+      "id": "activity",
+      "name": "喜好活動",
+      "options": ["烤肉", "溯溪", "觀星", "森林浴", "團體活動", "寧靜休息"]
+    },
+    {
+      "id": "special_needs",
+      "name": "特殊需求",
+      "options": ["無障礙設施", "過敏考量", "特殊飲食", "攜帶寵物", "嬰幼兒設施"]
+    }
+  ],
+  "contact_rules": {
+    "marketing_emails": {
+      "default": "monthly",
+      "options": ["none", "weekly", "monthly", "quarterly"]
+    },
+    "sms_notifications": {
+      "default": true,
+      "options": [true, false]
+    },
+    "promotion_calls": {
+      "default": false,
+      "options": [true, false]
+    },
+    "satisfaction_survey": {
+      "default": "after_visit",
+      "options": ["none", "after_visit", "quarterly"]
+    }
+  },
+  "loyalty_program": {
+    "points_per_dollar": 1,
+    "points_expiry_days": 365,
+    "tiers": [
+      {
+        "name": "一般會員",
+        "min_points": 0,
+        "benefits": ["生日優惠", "會員通訊"]
+      },
+      {
+        "name": "銀級會員",
+        "min_points": 5000,
+        "benefits": ["生日優惠", "會員通訊", "平日9折優惠", "延遲退房服務"]
+      },
+      {
+        "name": "金級會員",
+        "min_points": 15000,
+        "benefits": ["生日優惠", "會員通訊", "全週9折優惠", "延遲退房服務", "免費營位升級", "專屬帳篷區位置"]
+      }
+    ],
+    "redemption_options": [
+      {
+        "name": "平日住宿折扣50元",
+        "points_required": 500,
+        "description": "平日入住時可使用，每次預約僅限使用一次"
+      },
+      {
+        "name": "週末住宿折扣100元",
+        "points_required": 1000,
+        "description": "週末入住時可使用，每次預約僅限使用一次"
+      },
+      {
+        "name": "免費營位升級",
+        "points_required": 2000,
+        "description": "可免費升級至較高級的營位類型，視當時營區空位情況而定"
+      }
+    ]
+  }
+} 

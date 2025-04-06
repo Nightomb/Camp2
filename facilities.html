@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>設施服務 - 寶山葡萄藤露營區</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .facilities-hero {
+            height: 40vh;
+            min-height: 250px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/體驗大自然的寧靜與美好2.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 頂部放大樣式 */
+        .logo-img {
+            width: 75px;  /* 原本大約是50px */
+            height: auto;
+        }
+        
+        header h1 {
+            font-size: 2.25rem;  /* 原本大約是1.5rem */
+        }
+
+        /* 導航圖示樣式 */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .nav-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;  /* 原本35px */
+            height: 52px;  /* 原本35px */
+            margin: 0 5px;  /* 統一間隔 */
+            color: #4CAF50;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-icon:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-icon i {
+            font-size: 1.8rem;  /* 原本1.2rem */
+        }
+        
+        .nav-icon-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 1.05rem;  /* 原本0.7rem */
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-icon:hover .nav-icon-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-btn, header nav ul li a {
+            font-size: 1.2rem;  /* 原本大約是0.8rem */
+            padding: 12px 24px;  /* 增加padding */
+        }
+        
+        .nav-buttons {
+            display: flex;
+            align-items: center;
+            margin-left: auto;  /* 讓按鈕組向右靠 */
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-icons {
+                margin-right: 0;
+            }
+            
+            .nav-icon {
+                width: 45px;
+                height: 45px;
+                margin: 0 3px;
+            }
+            
+            .nav-icon-tooltip {
+                display: none;
+            }
+        }
+
+        .facilities-section {
+            padding: 80px 0;
+        }
+
+        .facilities-section:nth-child(even) {
+            background-color: #f5f8fa;
+        }
+
+        .facilities-section:nth-child(odd) {
+            background-color: white;
+        }
+
+        .facilities-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .facility-card {
+            flex: 0 0 calc(33.333% - 20px);
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .facility-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .facility-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .facility-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .facility-card:hover .facility-img img {
+            transform: scale(1.1);
+        }
+
+        .facility-info {
+            padding: 20px;
+        }
+
+        .facility-info h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .facility-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: #4CAF50;
+        }
+
+        .facility-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .facility-hours {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .facility-rules {
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            margin-top: 40px;
+        }
+
+        .facility-rules h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .facility-rules ul {
+            margin-left: 20px;
+        }
+
+        .facility-rules ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .facility-rules ul li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 8px;
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
+        }
+
+        .activities {
+            margin-top: 60px;
+        }
+
+        .activities h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .activity {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .activity-img {
+            flex: 0 0 25%;
+            padding: 0 15px;
+        }
+
+        .activity-img img {
+            border-radius: 50%;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-info {
+            flex: 0 0 75%;
+            padding: 0 15px;
+        }
+
+        .activity-info h4 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .activity-schedule {
+            margin-top: 10px;
+            font-style: italic;
+            color: #777;
+        }
+
+        @media screen and (max-width: 992px) {
+            .facility-card {
+                flex: 0 0 calc(50% - 15px);
+            }
+            
+            .activity-img, .activity-info {
+                flex: 0 0 100%;
+            }
+            
+            .activity-img {
+                margin-bottom: 20px;
+                text-align: center;
+            }
+            
+            .activity-img img {
+                width: 50%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .facility-card {
+                flex: 0 0 100%;
+            }
+            
+            .activity-img img {
+                width: 70%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+            <div class="logo" style="display: flex; align-items: center;">
+                <img src="images/葡萄藤L.png" alt="葡萄藤L" class="logo-img">
+                <h1 style="margin-left: 15px;"><a href="index.html" style="color: inherit; text-decoration: none;">寶山葡萄藤露營區</a></h1>
+            </div>
+            <nav>
+                <ul style="display: flex; align-items: center; margin: 0; padding: 0;">
+                    <li class="nav-icons">
+                        <a href="landscape.html" class="nav-icon">
+                            <i class="fas fa-mountain"></i>
+                            <span class="nav-icon-tooltip">絕美景觀</span>
+                        </a>
+                        <a href="camping-sites.html" class="nav-icon">
+                            <i class="fas fa-campground"></i>
+                            <span class="nav-icon-tooltip">多樣營位</span>
+                        </a>
+                        <a href="activities.html" class="nav-icon">
+                            <i class="fas fa-hiking"></i>
+                            <span class="nav-icon-tooltip">豐富活動</span>
+                        </a>
+                    </li>
+                    <li><a href="booking.html" class="booking-btn">立即預訂</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero facilities-hero big-image-area">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 style="font-size: 2.5rem; margin-top: 30px;">設施服務</h1>
+            <p style="font-size: 1.3rem; margin-top: 15px;">提供舒適便利的露營體驗，讓您無憂享受大自然</p>
+        </div>
+    </section>
+
+    <section class="facilities-section">
+        <div class="container">
+            <h2 class="section-title">公共設施</h2>
+            <p class="text-center" style="margin-bottom: 30px;">我們提供完善的公共設施，讓您在露營時能夠享受便利與舒適。</p>
+            
+            <div class="facilities-container">
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/bathroom.jpg" alt="衛浴設施">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-shower"></i> 衛浴設施</h3>
+                        <p>乾淨舒適的衛浴空間，提供熱水淋浴，男女分開設計。衛浴間內配備吹風機和基本盥洗用品。</p>
+                        <div class="facility-hours">
+                            <strong>開放時間:</strong> 24小時
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/kitchen.jpg" alt="公共廚房">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-utensils"></i> 公共廚房</h3>
+                        <p>設備齊全的公共廚房，提供爐台、流理台、烤箱等烹飪設備，以及基本的廚具和調味料。</p>
+                        <div class="facility-hours">
+                            <strong>開放時間:</strong> 早上7:00 - 晚上21:00
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/bbq.jpg" alt="烤肉區">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-fire"></i> 烤肉區</h3>
+                        <p>專屬烤肉區，配備固定式烤肉設備和用餐桌椅。提供木炭和基本烤肉工具出租服務。</p>
+                        <div class="facility-hours">
+                            <strong>開放時間:</strong> 早上11:00 - 晚上21:00
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/playground.jpg" alt="兒童遊樂區">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-child"></i> 兒童遊樂區</h3>
+                        <p>專為孩子設計的安全遊樂設施，包括溜滑梯、鞦韆、沙坑等，讓孩子們能在大自然中盡情玩樂。</p>
+                        <div class="facility-hours">
+                            <strong>開放時間:</strong> 早上8:00 - 傍晚18:00
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/laundry.jpg" alt="洗衣設施">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-tshirt"></i> 洗衣設施</h3>
+                        <p>自助洗衣和烘乾機，提供投幣式操作。附近有洗衣粉販賣機，方便長期露營的客人。</p>
+                        <div class="facility-hours">
+                            <strong>開放時間:</strong> 早上8:00 - 晚上20:00
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/wifi-zone.jpg" alt="休憩區/網路區">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-wifi"></i> 休憩區/網路區</h3>
+                        <p>舒適的室內休憩空間，提供免費WiFi和充電設施。設有沙發、桌椅和書報雜誌，適合閱讀或小憩。</p>
+                        <div class="facility-hours">
+                            <strong>開放時間:</strong> 早上8:00 - 晚上22:00
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="facility-rules">
+                <h3><i class="fas fa-clipboard-list"></i> 設施使用規範</h3>
+                <ul>
+                    <li>請愛護公共設施，保持清潔，使用完畢後將垃圾分類並丟至指定區域。</li>
+                    <li>公共廚房使用完畢後，請清洗所有餐具並歸位，關閉所有電源和水龍頭。</li>
+                    <li>烤肉區使用時請注意防火安全，用完後務必完全熄滅火源。</li>
+                    <li>兒童遊樂設施使用時，12歲以下兒童需有成人陪同。</li>
+                    <li>洗衣設施使用完後，請取回您的衣物，不要佔用烘乾機。</li>
+                    <li>浴室使用時請節約用水，不要長時間淋浴。</li>
+                    <li>公共設施如有損壞，請立即通知管理人員。</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="facilities-section">
+        <div class="container">
+            <h2 class="section-title">便利服務</h2>
+            <p class="text-center" style="margin-bottom: 30px;">我們提供多項便利服務，讓您的露營體驗更加舒適無憂。</p>
+            <div class="facilities-container">
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/store.jpg" alt="便利商店">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-store"></i> 露營補給站</h3>
+                        <p>提供基本食品、飲料、日用品和露營用品，滿足您露營期間的緊急需求。也提供冰塊和柴火銷售。</p>
+                        <div class="facility-hours">
+                            <strong>營業時間:</strong> 早上8:00 - 晚上21:00
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/equipment.jpg" alt="露營裝備租借">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-campground"></i> 裝備租借服務</h3>
+                        <p>提供帳篷、睡袋、露營桌椅、營燈等露營裝備租借，方便輕裝出遊或初次嘗試露營的遊客。</p>
+                        <div class="facility-hours">
+                            <strong>服務時間:</strong> 早上9:00 - 晚上18:00
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="facility-card">
+                    <div class="facility-img">
+                        <img src="images/firstaid.jpg" alt="急救服務">
+                    </div>
+                    <div class="facility-info">
+                        <h3><i class="fas fa-first-aid"></i> 急救站</h3>
+                        <p>配有基本醫療設備和藥品的急救站，處理輕微傷害。嚴重情況可協助聯繫鄰近醫療機構。</p>
+                        <div class="facility-hours">
+                            <strong>服務時間:</strong> 24小時 (夜間請聯絡值班人員)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <p>想了解更多關於我們提供的各種活動，請參訪<a href="activities.html" style="color: #4CAF50; font-weight: bold;">豐富活動</a>頁面。</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>寶山葡萄藤露營區</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 新竹市寶山</p>
+                    <p><i class="fas fa-phone"></i> (02) 2663-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@foreststar-camping.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>快速連結</h3>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="faq.html">常見問題</a></li>
+                        <li><a href="policy.html">營區規範</a></li>
+                        <li><a href="privacy.html">隱私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>關注我們</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 寶山葡萄藤露營區。保留所有權利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

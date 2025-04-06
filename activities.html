@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>豐富活動 - 寶山葡萄藤露營區</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .activities-hero {
+            height: 40vh;
+            min-height: 250px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/體驗大自然的寧靜與美好2.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 頂部放大樣式 */
+        .logo-img {
+            width: 75px;  /* 原本大約是50px */
+            height: auto;
+        }
+        
+        header h1 {
+            font-size: 2.25rem;  /* 原本大約是1.5rem */
+        }
+
+        /* 導航圖示樣式 */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .nav-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            margin: 0 5px;
+            color: #4CAF50;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-icon:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-icon i {
+            font-size: 1.8rem;  /* 原本1.2rem */
+        }
+        
+        .nav-icon-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 1.05rem;  /* 原本0.7rem */
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-icon:hover .nav-icon-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-btn, header nav ul li a {
+            font-size: 1.2rem;  /* 原本大約是0.8rem */
+            padding: 12px 24px;  /* 增加padding */
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-icons {
+                margin-right: 0;
+            }
+            
+            .nav-icon {
+                width: 45px;
+                height: 45px;
+                margin: 0 3px;
+            }
+            
+            .nav-icon-tooltip {
+                display: none;
+            }
+        }
+
+        .activities-section {
+            padding: 80px 0;
+        }
+
+        .activities-section:nth-child(even) {
+            background-color: #f5f8fa;
+        }
+
+        .activities-section:nth-child(odd) {
+            background-color: white;
+        }
+
+        .activities {
+            margin-top: 40px;
+        }
+
+        .activity {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .activity-img {
+            flex: 0 0 30%;
+            padding: 0 15px;
+        }
+
+        .activity-img img {
+            border-radius: 10px;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .activity:hover .activity-img img {
+            transform: scale(1.05);
+        }
+
+        .activity-info {
+            flex: 0 0 70%;
+            padding: 0 30px;
+        }
+
+        .activity-info h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 12px;
+        }
+
+        .activity-info h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #4CAF50;
+        }
+
+        .activity-info p {
+            margin-bottom: 20px;
+            line-height: 1.6;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .activity-schedule {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .activity-schedule strong {
+            color: #2c3e50;
+        }
+
+        .activity-join {
+            margin-top: 25px;
+        }
+
+        .btn-activity {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-activity:hover {
+            background-color: #388E3C;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        @media screen and (max-width: 992px) {
+            .activity-img, .activity-info {
+                flex: 0 0 100%;
+            }
+            
+            .activity-img {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            
+            .activity-img img {
+                width: 80%;
+            }
+
+            .activity-info {
+                padding: 0 15px;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .activity-img img {
+                width: 100%;
+            }
+
+            .activity {
+                margin-bottom: 40px;
+                padding-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+            <div class="logo" style="display: flex; align-items: center;">
+                <img src="images/葡萄藤L.png" alt="葡萄藤L" class="logo-img">
+                <h1 style="margin-left: 15px;"><a href="index.html" style="color: inherit; text-decoration: none;">寶山葡萄藤露營區</a></h1>
+            </div>
+            <nav>
+                <ul style="display: flex; align-items: center; margin: 0; padding: 0;">
+                    <li class="nav-icons">
+                        <a href="landscape.html" class="nav-icon">
+                            <i class="fas fa-mountain"></i>
+                            <span class="nav-icon-tooltip">絕美景觀</span>
+                        </a>
+                        <a href="camping-sites.html" class="nav-icon">
+                            <i class="fas fa-campground"></i>
+                            <span class="nav-icon-tooltip">多樣營位</span>
+                        </a>
+                        <a href="facilities.html" class="nav-icon">
+                            <i class="fas fa-shower"></i>
+                            <span class="nav-icon-tooltip">完善設施</span>
+                        </a>
+                    </li>
+                    <li><a href="booking.html" class="booking-btn">立即預訂</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero activities-hero big-image-area">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 style="font-size: 2.5rem; margin-top: 30px;">豐富活動</h1>
+            <p style="font-size: 1.3rem; margin-top: 15px;">探索自然，享受多元精彩的戶外體驗</p>
+        </div>
+    </section>
+
+    <section class="activities-section">
+        <div class="container">
+            <h2 class="section-title">特色活動</h2>
+            <p class="text-center" style="margin-bottom: 30px;">在寶山葡萄藤露營區，我們提供多種豐富多元的戶外活動，讓您的露營體驗更加精彩。無論是親子同樂還是朋友聚會，都能找到適合的活動。</p>
+            
+            <div class="activities">
+                <div class="activity">
+                    <div class="activity-img">
+                        <img src="images/hiking.jpg" alt="森林步道導覽">
+                    </div>
+                    <div class="activity-info">
+                        <h3>森林步道導覽</h3>
+                        <p>由專業導覽員帶領您探索周邊森林步道，了解當地生態環境和植物知識。沿途可觀賞多種野生動植物，聆聽鳥鳴蟲唱，感受森林的活力與寧靜。導覽過程中，您將認識許多常見與稀有植物，了解牠們的生態習性與用途，是親近大自然的絕佳方式。</p>
+                        <div class="activity-schedule">
+                            <strong>活動時間:</strong> 每天上午9:00及下午15:00 (約90分鐘)<br>
+                            <strong>集合地點:</strong> 露營區服務中心<br>
+                            <strong>費用:</strong> NT$100/人 (12歲以下兒童免費)<br>
+                            <strong>須知:</strong> 請穿著輕便服裝與運動鞋，自備飲水與防曬用品
+                        </div>
+                        <div class="activity-join">
+                            <a href="booking.html" class="btn-activity">立即報名</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity">
+                    <div class="activity-img">
+                        <img src="images/stargazing.jpg" alt="夜間觀星活動">
+                    </div>
+                    <div class="activity-info">
+                        <h3>夜間觀星活動</h3>
+                        <p>在專業天文愛好者的指導下，透過天文望遠鏡觀察夜空中的星辰。在光害較少的露營區，您可以清楚看到星座、行星甚至銀河。導覽員將介紹季節性星空特色，分享有趣的星座神話故事，教您如何辨識主要星座與天體。天氣晴朗時，更有機會觀測到流星與其他特殊天文現象。</p>
+                        <div class="activity-schedule">
+                            <strong>活動時間:</strong> 每週五、六晚上20:00 (約120分鐘)<br>
+                            <strong>集合地點:</strong> 觀星草坪<br>
+                            <strong>費用:</strong> NT$150/人 (需提前預約)<br>
+                            <strong>須知:</strong> 請自備保暖衣物，活動將視天氣狀況調整
+                        </div>
+                        <div class="activity-join">
+                            <a href="booking.html" class="btn-activity">立即報名</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity">
+                    <div class="activity-img">
+                        <img src="images/campfire.jpg" alt="營火晚會">
+                    </div>
+                    <div class="activity-info">
+                        <h3>營火晚會</h3>
+                        <p>在星空下圍繞營火，享受音樂、歌唱和烤棉花糖的樂趣。營火晚會提供了與其他露營者交流互動的機會，創造美好回憶。活動包括民謠吉他表演、營火舞蹈、團體遊戲與互動分享，適合所有年齡層參加。特別準備的棉花糖烤架與木棍，讓您體驗親手烤棉花糖的樂趣。</p>
+                        <div class="activity-schedule">
+                            <strong>活動時間:</strong> 每週六晚上19:30 (約120分鐘)<br>
+                            <strong>集合地點:</strong> 中央營火區<br>
+                            <strong>費用:</strong> 免費參加 (提供烤棉花糖材料)<br>
+                            <strong>須知:</strong> 請遵守營火安全規範，自備保暖衣物
+                        </div>
+                        <div class="activity-join">
+                            <a href="booking.html" class="btn-activity">立即報名</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity">
+                    <div class="activity-img">
+                        <img src="images/crafts.jpg" alt="DIY手作工作坊">
+                    </div>
+                    <div class="activity-info">
+                        <h3>DIY手作工作坊</h3>
+                        <p>利用大自然素材，創作獨一無二的手工藝品。工作坊內容依季節不同而變化，包括木工創作、植物染布、森林花圈製作、松果裝飾、香草手工皂等。專業老師會耐心指導每個步驟，即使是沒有經驗的初學者也能完成漂亮的作品。完成的作品可以帶回家，作為露營旅程的美好紀念。</p>
+                        <div class="activity-schedule">
+                            <strong>活動時間:</strong> 每週六、日下午14:00 (約90分鐘)<br>
+                            <strong>集合地點:</strong> 活動中心<br>
+                            <strong>費用:</strong> NT$200-500/人 (依活動內容而定，需提前預約)<br>
+                            <strong>須知:</strong> 適合6歲以上參加，所有材料工具現場提供
+                        </div>
+                        <div class="activity-join">
+                            <a href="booking.html" class="btn-activity">立即報名</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="activity">
+                    <div class="activity-img">
+                        <img src="images/fruitpicking.jpg" alt="葡萄採摘體驗">
+                    </div>
+                    <div class="activity-info">
+                        <h3>葡萄採摘體驗</h3>
+                        <p>寶山葡萄藤露營區鄰近葡萄園，我們特別提供獨家的葡萄採摘體驗。在專業果農指導下，了解葡萄種植的知識與技巧，親手採摘時令葡萄。採摘後還可以現場品嚐新鮮葡萄，並將自己採的葡萄帶回。此外，您還能參與葡萄加工品DIY，如製作葡萄果醬或葡萄乾，享受從田園到餐桌的完整體驗。</p>
+                        <div class="activity-schedule">
+                            <strong>活動時間:</strong> 每年7-9月，週六、日上午10:00 (約120分鐘)<br>
+                            <strong>集合地點:</strong> 露營區服務中心<br>
+                            <strong>費用:</strong> NT$350/人 (含500g葡萄採摘，DIY體驗)<br>
+                            <strong>須知:</strong> 請穿著輕便服裝，自備防曬用品與容器
+                        </div>
+                        <div class="activity-join">
+                            <a href="booking.html" class="btn-activity">立即報名</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="activities-section">
+        <div class="container">
+            <h2 class="section-title">季節限定活動</h2>
+            <p class="text-center" style="margin-bottom: 40px;">我們根據不同季節推出限定特色活動，請關注官網或社群媒體的最新消息。</p>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <p>想要獲取更多活動資訊或預訂活動，請聯繫我們的服務中心或線上預訂。</p>
+                <div style="margin-top: 30px;">
+                    <a href="booking.html" class="btn">查看更多活動</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>寶山葡萄藤露營區</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 新竹市寶山</p>
+                    <p><i class="fas fa-phone"></i> (02) 2663-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@foreststar-camping.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>快速連結</h3>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="faq.html">常見問題</a></li>
+                        <li><a href="policy.html">營區規範</a></li>
+                        <li><a href="privacy.html">隱私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>關注我們</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 寶山葡萄藤露營區。保留所有權利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

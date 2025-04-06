@@ -1,0 +1,32 @@
+[
+  {
+    "id": "1",
+    "username": "admin",
+    "password": "88888888",
+    "name": "寶山營主",
+    "email": "admin@example.com",
+    "role": "admin",
+    "lastLogin": "2024-05-25T09:30:00.000Z",
+    "status": "active"
+  },
+  {
+    "id": "2",
+    "username": "staff01",
+    "password": "staff123",
+    "name": "王小明",
+    "email": "staff01@example.com",
+    "role": "staff",
+    "lastLogin": "2024-05-24T18:15:00.000Z",
+    "status": "active"
+  },
+  {
+    "id": "3",
+    "username": "reception",
+    "password": "reception123",
+    "name": "林小美",
+    "email": "reception@example.com",
+    "role": "reception",
+    "lastLogin": "2024-05-25T08:45:00.000Z",
+    "status": "active"
+  }
+] 

@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>絕美景觀 - 寶山葡萄藤露營區</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .landscape-hero {
+            height: 40vh;
+            min-height: 250px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/體驗大自然的寧靜與美好1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 頂部放大樣式 */
+        .logo-img {
+            width: 75px;  /* 原本大約是50px */
+            height: auto;
+        }
+        
+        header h1 {
+            font-size: 2.25rem;  /* 原本大約是1.5rem */
+        }
+        
+        /* 導航圖示樣式 */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .nav-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            margin: 0 5px;
+            color: #4CAF50;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-icon:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-icon i {
+            font-size: 1.8rem;  /* 原本1.2rem */
+        }
+        
+        .nav-icon-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 1.05rem;  /* 原本0.7rem */
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-icon:hover .nav-icon-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-btn, header nav ul li a {
+            font-size: 1.2rem;  /* 原本大約是0.8rem */
+            padding: 12px 24px;  /* 增加padding */
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-icons {
+                margin-right: 0;
+            }
+            
+            .nav-icon {
+                width: 45px;
+                height: 45px;
+                margin: 0 3px;
+            }
+            
+            .nav-icon-tooltip {
+                display: none;
+            }
+        }
+
+        .landscape-section {
+            padding: 80px 0;
+        }
+
+        .landscape-section:nth-child(even) {
+            background-color: #f5f8fa;
+        }
+
+        .landscape-section:nth-child(odd) {
+            background-color: white;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            height: 0;
+            padding-bottom: 75%; /* 4:3 比例 */
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .gallery-item img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .gallery-item:hover .overlay {
+            opacity: 1;
+        }
+
+        .gallery-item .overlay i {
+            color: white;
+            font-size: 2rem;
+        }
+
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 5px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-caption {
+            color: white;
+            margin-top: 20px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 50px;
+            transform: translateY(-50%);
+        }
+
+        .modal-nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 3rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-nav button:hover {
+            opacity: 1;
+        }
+
+        @media screen and (max-width: 992px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+            <div class="logo" style="display: flex; align-items: center;">
+                <img src="images/葡萄藤L.png" alt="葡萄藤L" class="logo-img">
+                <h1 style="margin-left: 15px;"><a href="index.html" style="color: inherit; text-decoration: none;">寶山葡萄藤露營區</a></h1>
+            </div>
+            <nav>
+                <ul style="display: flex; align-items: center; margin: 0; padding: 0;">
+                    <li class="nav-icons">
+                        <a href="camping-sites.html" class="nav-icon">
+                            <i class="fas fa-campground"></i>
+                            <span class="nav-icon-tooltip">多樣營位</span>
+                        </a>
+                        <a href="facilities.html" class="nav-icon">
+                            <i class="fas fa-shower"></i>
+                            <span class="nav-icon-tooltip">完善設施</span>
+                        </a>
+                        <a href="activities.html" class="nav-icon">
+                            <i class="fas fa-hiking"></i>
+                            <span class="nav-icon-tooltip">豐富活動</span>
+                        </a>
+                    </li>
+                    <li><a href="booking.html" class="booking-btn">立即預訂</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero landscape-hero big-image-area">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 style="font-size: 2.5rem; margin-top: 30px;">絕美景觀</h1>
+            <p style="font-size: 1.3rem; margin-top: 15px;">大自然的壯麗與寧靜，盡在寶山葡萄藤露營區</p>
+        </div>
+    </section>
+
+    <section class="landscape-section">
+        <div class="container">
+            <h2 class="section-title">美景相簿</h2>
+            <p class="text-center" style="margin-bottom: 30px;">寶山葡萄藤露營區座落於山林之中，擁有得天獨厚的自然環境。山巒環繞、雲霧繚繞、晨曦夕照，每一處景致都值得細細品味。透過以下照片，先一睹令人屏息的美景，親臨現場時，更能感受大自然的磅礴與寧靜。</p>
+            
+            <div class="gallery">
+                <div class="gallery-item" data-index="0">
+                    <img src="images/View/1.jpg" alt="露營區景觀1">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="1">
+                    <img src="images/View/2.jpg" alt="露營區景觀2">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="2">
+                    <img src="images/View/3.jpg" alt="露營區景觀3">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="3">
+                    <img src="images/View/4.jpg" alt="露營區景觀4">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="4">
+                    <img src="images/View/5.jpg" alt="露營區景觀5">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="5">
+                    <img src="images/View/6.jpg" alt="露營區景觀6">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="6">
+                    <img src="images/View/7.jpg" alt="露營區景觀7">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="7">
+                    <img src="images/View/8.jpg" alt="露營區景觀8">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="8">
+                    <img src="images/View/9.jpg" alt="露營區景觀9">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="9">
+                    <img src="images/View/10.jpg" alt="露營區景觀10">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="10">
+                    <img src="images/View/11.jpg" alt="露營區景觀11">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="11">
+                    <img src="images/View/12.jpg" alt="露營區景觀12">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="12">
+                    <img src="images/View/13.jpg" alt="露營區景觀13">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="13">
+                    <img src="images/View/14.jpg" alt="露營區景觀14">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="14">
+                    <img src="images/View/15.jpg" alt="露營區景觀15">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="15">
+                    <img src="images/View/16.jpg" alt="露營區景觀16">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="16">
+                    <img src="images/View/17.jpg" alt="露營區景觀17">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="17">
+                    <img src="images/View/18.jpg" alt="露營區景觀18">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="18">
+                    <img src="images/View/19.jpg" alt="露營區景觀19">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="19">
+                    <img src="images/View/20.jpg" alt="露營區景觀20">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="20">
+                    <img src="images/View/22.jpg" alt="露營區景觀22">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="21">
+                    <img src="images/View/23.jpg" alt="露營區景觀23">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="22">
+                    <img src="images/View/24.jpg" alt="露營區景觀24">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="23">
+                    <img src="images/View/25.jpg" alt="露營區景觀25">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="24">
+                    <img src="images/View/26.jpg" alt="露營區景觀26">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+                <div class="gallery-item" data-index="25">
+                    <img src="images/View/28.jpg" alt="露營區景觀28">
+                    <div class="overlay"><i class="fas fa-search-plus"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 照片查看器模態框 -->
+    <div class="gallery-modal">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" src="" alt="放大景觀照片">
+        <div class="modal-caption"></div>
+        <div class="modal-nav">
+            <button class="prev-btn"><i class="fas fa-chevron-left"></i></button>
+            <button class="next-btn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <section class="landscape-section">
+        <div class="container">
+            <h2 class="section-title">四季之美</h2>
+            <p class="text-center" style="margin-bottom: 30px;">寶山葡萄藤露營區四季景色各有特色：春天百花盛開、夏日蟲鳴鳥叫、秋季楓葉如火、冬天雲霧繚繞。無論您何時到訪，都能收穫不同的美麗景色和獨特的自然體驗。</p>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <p>想要親眼見證這些絕美景觀，趕緊預訂您的露營之旅吧！</p>
+                <div style="margin-top: 30px;">
+                    <a href="booking.html" class="btn">立即預訂</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>寶山葡萄藤露營區</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 新竹市寶山</p>
+                    <p><i class="fas fa-phone"></i> (02) 2663-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@foreststar-camping.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>快速連結</h3>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="faq.html">常見問題</a></li>
+                        <li><a href="policy.html">營區規範</a></li>
+                        <li><a href="privacy.html">隱私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>關注我們</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 寶山葡萄藤露營區。保留所有權利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 照片查看器功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const modal = document.querySelector('.gallery-modal');
+            const modalImg = document.querySelector('.modal-content');
+            const modalCaption = document.querySelector('.modal-caption');
+            const closeBtn = document.querySelector('.modal-close');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            
+            let currentIndex = 0;
+            const images = Array.from(galleryItems).map(item => ({
+                src: item.querySelector('img').src,
+                alt: item.querySelector('img').alt
+            }));
+
+            // 打開模態框
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    modal.style.display = 'flex';
+                    currentIndex = parseInt(this.getAttribute('data-index'));
+                    showImage(currentIndex);
+                    document.body.style.overflow = 'hidden'; // 禁止背景滾動
+                });
+            });
+
+            // 關閉模態框
+            closeBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+                document.body.style.overflow = ''; // 恢復背景滾動
+            });
+
+            // 切換到上一張圖片
+            prevBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(currentIndex);
+            });
+
+            // 切換到下一張圖片
+            nextBtn.addEventListener('click', function() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            });
+
+            // 點擊模態框背景關閉
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }
+            });
+
+            // 鍵盤操作
+            document.addEventListener('keydown', function(e) {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        currentIndex = (currentIndex - 1 + images.length) % images.length;
+                        showImage(currentIndex);
+                    } else if (e.key === 'ArrowRight') {
+                        currentIndex = (currentIndex + 1) % images.length;
+                        showImage(currentIndex);
+                    } else if (e.key === 'Escape') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = '';
+                    }
+                }
+            });
+
+            // 顯示圖片
+            function showImage(index) {
+                modalImg.src = images[index].src;
+                modalCaption.textContent = images[index].alt;
+                
+                // 預加載下一張圖片
+                const nextIndex = (index + 1) % images.length;
+                new Image().src = images[nextIndex].src;
+            }
+        });
+    </script>
+</body>
+</html> 

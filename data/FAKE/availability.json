@@ -1,0 +1,25 @@
+[
+  {
+    "date": "2024-06-01",
+    "status": "available",
+    "grass": {
+      "total": 10,
+      "used": 0,
+      "available": 10,
+      "rate": 1
+    },
+    "wooden": {
+      "total": 8,
+      "used": 0,
+      "available": 8,
+      "rate": 1
+    },
+    "rv": {
+      "total": 5,
+      "used": 0,
+      "available": 5,
+      "rate": 1
+    },
+    "overallRate": 1
+  }
+] 

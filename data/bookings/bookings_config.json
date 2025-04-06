@@ -1,0 +1,59 @@
+{
+  "status_types": [
+    {
+      "id": "pending",
+      "name": "待確認",
+      "color": "#FFC107",
+      "description": "客戶已提交預約，但管理員尚未確認"
+    },
+    {
+      "id": "confirmed",
+      "name": "已確認",
+      "color": "#4CAF50",
+      "description": "預約已確認，客戶可在指定日期入住"
+    },
+    {
+      "id": "cancelled",
+      "name": "已取消",
+      "color": "#F44336",
+      "description": "預約已被客戶或管理員取消"
+    },
+    {
+      "id": "completed",
+      "name": "已完成",
+      "color": "#2196F3",
+      "description": "客戶已完成入住並退房"
+    }
+  ],
+  "email_templates": {
+    "booking_confirmation": {
+      "subject": "【寶山葡萄藤露營區】您的預約已確認 (預約編號: {{booking_id}})",
+      "content": "親愛的 {{customer_name}} 您好，\n\n感謝您預約寶山葡萄藤露營區！我們很高興確認您的預訂已成功完成。\n\n預約詳情：\n- 預約編號：{{booking_id}}\n- 入住日期：{{check_in_date}}\n- 退房日期：{{check_out_date}}\n- 營位類型：{{site_type}}\n- 預訂人數：大人 {{adults_count}} 位，小孩 {{children_count}} 位\n\n若有任何問題或特殊需求，請隨時與我們聯繫：\n- 電話：(04) 2587-9876\n- Email：service@baoshan-camping.tw\n\n期待您的光臨！\n\n寶山葡萄藤露營區團隊 敬上"
+    },
+    "booking_reminder": {
+      "subject": "【寶山葡萄藤露營區】入住提醒 (預約編號: {{booking_id}})",
+      "content": "親愛的 {{customer_name}} 您好，\n\n提醒您，您預訂的寶山葡萄藤露營區營位即將到來！\n\n預約詳情：\n- 預約編號：{{booking_id}}\n- 入住日期：{{check_in_date}} (明天)\n- 退房日期：{{check_out_date}}\n- 營位類型：{{site_type}}\n\n入營時間為下午3點至晚上8點，如需延後請提前告知。\n\n交通指引：\n- 自行開車：請導航至「寶山葡萄藤露營區」\n- 大眾運輸：可搭乘高鐵至新竹站，轉乘計程車約30分鐘可抵達\n\n若有任何問題，請隨時與我們聯繫。\n\n寶山葡萄藤露營區團隊 敬上"
+    },
+    "booking_cancellation": {
+      "subject": "【寶山葡萄藤露營區】預約取消通知 (預約編號: {{booking_id}})",
+      "content": "親愛的 {{customer_name}} 您好，\n\n您的寶山葡萄藤露營區預約已取消。\n\n預約詳情：\n- 預約編號：{{booking_id}}\n- 原定入住日期：{{check_in_date}}\n- 原定退房日期：{{check_out_date}}\n- 營位類型：{{site_type}}\n\n若有任何疑問，請隨時與我們聯繫。\n\n期待未來有機會為您服務！\n\n寶山葡萄藤露營區團隊 敬上"
+    }
+  },
+  "booking_rules": {
+    "min_days_in_advance": 1,
+    "max_days_in_advance": 90,
+    "min_stay_days": 1,
+    "max_stay_days": 7,
+    "check_in_time": "15:00",
+    "check_out_time": "11:00",
+    "cancellation_policy": {
+      "free_cancel_days": 7,
+      "partial_refund_days": 3,
+      "partial_refund_percentage": 50
+    }
+  },
+  "booking_form": {
+    "required_fields": ["name", "phone", "checkin_date", "checkout_date", "adults", "site_type"],
+    "optional_fields": ["email", "children", "special_requests", "car_license"]
+  }
+} 

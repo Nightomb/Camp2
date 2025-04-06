@@ -1,0 +1,204 @@
+{
+  "campsites": [
+    {
+      "id": "A01",
+      "name": "木棧板營位 A01",
+      "type": "wooden",
+      "zone": "zone_a",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 6,
+        "cars": 1,
+        "tent_size": "4-6人帳"
+      },
+      "price": 1800,
+      "status": "active",
+      "features": ["獨立電源", "LED照明", "免費WiFi", "優質木棧板"],
+      "description": "位於A區入口處的木棧板營位，地勢平坦，空間寬敞，適合家庭露營。鄰近洗手間和交誼廳，生活便利。",
+      "availability": {
+        "maintenance_dates": ["2024-06-15", "2024-06-16"]
+      },
+      "images": ["A01_1.jpg", "A01_2.jpg", "wooden_common.jpg"]
+    },
+    {
+      "id": "A02",
+      "name": "木棧板營位 A02",
+      "type": "wooden",
+      "zone": "zone_a",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 6,
+        "cars": 1,
+        "tent_size": "4-6人帳"
+      },
+      "price": 1800,
+      "status": "active",
+      "features": ["獨立電源", "LED照明", "免費WiFi", "優質木棧板"],
+      "description": "A區最受歡迎的木棧板營位之一，視野開闊，營位大小適中，鄰近A01，適合親友共同露營。",
+      "availability": {
+        "maintenance_dates": []
+      },
+      "images": ["A02_1.jpg", "A02_2.jpg", "wooden_common.jpg"]
+    },
+    {
+      "id": "B03",
+      "name": "草地營位 B03",
+      "type": "grass",
+      "zone": "zone_b",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 4,
+        "cars": 0,
+        "tent_size": "3-4人帳"
+      },
+      "price": 1500,
+      "status": "active",
+      "features": ["公共電源", "天然草皮", "樹蔭遮陽"],
+      "description": "位於B區的草地營位，周圍有樹木提供自然遮陽，地面為修剪整齊的草皮，提供舒適的自然露營體驗。",
+      "availability": {
+        "maintenance_dates": ["2024-05-20", "2024-05-21"]
+      },
+      "images": ["B03_1.jpg", "grass_common.jpg"]
+    },
+    {
+      "id": "B05",
+      "name": "草地營位 B05",
+      "type": "grass",
+      "zone": "zone_b",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 6,
+        "cars": 0,
+        "tent_size": "4-6人帳"
+      },
+      "price": 1500,
+      "status": "active",
+      "features": ["公共電源", "天然草皮", "近烤肉區"],
+      "description": "B區較大的草地營位，適合放置較大型帳篷，鄰近烤肉區，方便進行戶外烹飪活動。",
+      "availability": {
+        "maintenance_dates": []
+      },
+      "images": ["B05_1.jpg", "grass_common.jpg"]
+    },
+    {
+      "id": "C01",
+      "name": "露營車營位 C01",
+      "type": "rv",
+      "zone": "zone_c",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 6,
+        "cars": 1,
+        "tent_size": "不適用"
+      },
+      "price": 2200,
+      "status": "inactive",
+      "features": ["專用水電接駁", "加大空間", "平整地面", "免費WiFi"],
+      "description": "專為露營車設計的加大營位，配備專用水電接駁設施，地面經特殊處理，平整堅固，可承受露營車重量。",
+      "availability": {
+        "maintenance_dates": ["2024-05-01", "2024-05-10"]
+      },
+      "images": ["C01_1.jpg", "rv_common.jpg"]
+    },
+    {
+      "id": "A03",
+      "name": "木棧板營位 A03",
+      "type": "wooden",
+      "zone": "zone_a",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 6,
+        "cars": 1,
+        "tent_size": "4-6人帳"
+      },
+      "price": 1800,
+      "status": "active",
+      "features": ["獨立電源", "LED照明", "免費WiFi", "優質木棧板"],
+      "description": "A區中間位置的木棧板營位，視野一般但隱密性較好，適合追求私密感的露營者。",
+      "availability": {
+        "maintenance_dates": []
+      },
+      "images": ["A03_1.jpg", "wooden_common.jpg"]
+    },
+    {
+      "id": "B01",
+      "name": "草地營位 B01",
+      "type": "grass",
+      "zone": "zone_b",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 4,
+        "cars": 0,
+        "tent_size": "2-4人帳"
+      },
+      "price": 1500,
+      "status": "active",
+      "features": ["公共電源", "天然草皮", "日出景觀"],
+      "description": "B區最靠近東側的草地營位，清晨可欣賞日出美景，地勢較高，視野良好。",
+      "availability": {
+        "maintenance_dates": []
+      },
+      "images": ["B01_1.jpg", "grass_common.jpg"]
+    },
+    {
+      "id": "C02",
+      "name": "露營車營位 C02",
+      "type": "rv",
+      "zone": "zone_c",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 6,
+        "cars": 1,
+        "tent_size": "不適用"
+      },
+      "price": 2200,
+      "status": "active",
+      "features": ["專用水電接駁", "加大空間", "平整地面", "免費WiFi", "獨立衛浴"],
+      "description": "C區最豪華的露營車營位，除標準配備外還提供獨立衛浴設施，適合長期入住的露營車旅客。",
+      "availability": {
+        "maintenance_dates": []
+      },
+      "images": ["C02_1.jpg", "C02_2.jpg", "rv_common.jpg"]
+    },
+    {
+      "id": "D01",
+      "name": "河畔營位 D01",
+      "type": "grass",
+      "zone": "zone_d",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 4,
+        "cars": 0,
+        "tent_size": "2-4人帳"
+      },
+      "price": 1650,
+      "status": "active",
+      "features": ["溪水景觀", "私密空間", "天然草皮", "公共電源"],
+      "description": "D區最靠近小溪的特色營位，可聽溪水聲入眠，環境清幽，提供最接近自然的露營體驗。",
+      "availability": {
+        "maintenance_dates": []
+      },
+      "images": ["D01_1.jpg", "riverside_common.jpg"]
+    },
+    {
+      "id": "D02",
+      "name": "河畔營位 D02",
+      "type": "grass",
+      "zone": "zone_d",
+      "capacity": {
+        "min_persons": 2,
+        "max_persons": 4,
+        "cars": 0,
+        "tent_size": "2-4人帳"
+      },
+      "price": 1650,
+      "status": "active",
+      "features": ["溪水景觀", "私密空間", "天然草皮", "公共電源"],
+      "description": "與D01相鄰的河畔營位，同樣擁有優美的溪水景觀和私密環境，適合喜愛自然的露營客。",
+      "availability": {
+        "maintenance_dates": []
+      },
+      "images": ["D02_1.jpg", "riverside_common.jpg"]
+    }
+  ]
+} 

@@ -1,0 +1,146 @@
+{
+  "report_types": [
+    {
+      "id": "booking_stats",
+      "name": "預約總數統計",
+      "description": "依月份統計預約總數，分析營位使用趨勢",
+      "default_time_period": "monthly",
+      "available_metrics": [
+        "total_bookings",
+        "booking_by_site_type",
+        "revenue",
+        "year_over_year"
+      ],
+      "charts": [
+        {
+          "type": "bar",
+          "title": "月度預約統計",
+          "description": "顯示各月份預約數量趨勢",
+          "data_source": "monthly_bookings"
+        },
+        {
+          "type": "line",
+          "title": "年度趨勢比較",
+          "description": "比較不同年份同期預約趨勢",
+          "data_source": "yearly_comparison"
+        },
+        {
+          "type": "pie",
+          "title": "營位類型佔比",
+          "description": "顯示不同營位類型的預約佔比",
+          "data_source": "campsite_types"
+        }
+      ]
+    },
+    {
+      "id": "popular_sites",
+      "name": "熱門營位統計",
+      "description": "分析最受歡迎的營位類型與特定營位，優化營區資源配置",
+      "default_time_period": "quarterly",
+      "available_metrics": [
+        "booking_count",
+        "occupancy_rate",
+        "avg_guests",
+        "avg_stay",
+        "revenue"
+      ],
+      "charts": [
+        {
+          "type": "bar",
+          "title": "營位預約次數排名",
+          "description": "顯示各營位預約次數排名",
+          "data_source": "site_bookings"
+        },
+        {
+          "type": "radar",
+          "title": "營位類型綜合評分",
+          "description": "比較不同營位類型在各項指標上的表現",
+          "data_source": "site_type_metrics"
+        },
+        {
+          "type": "heatmap",
+          "title": "熱門度分布圖",
+          "description": "視覺化顯示各營位熱門程度",
+          "data_source": "popularity_heatmap"
+        }
+      ]
+    },
+    {
+      "id": "vacancy_analysis",
+      "name": "營位空缺率分析",
+      "description": "分析營位使用率與空缺趨勢，提供未來規劃參考",
+      "default_time_period": "quarterly",
+      "available_metrics": [
+        "occupancy_rate",
+        "vacancy_rate",
+        "weekday_vs_weekend",
+        "seasonal_trends"
+      ],
+      "charts": [
+        {
+          "type": "line",
+          "title": "入住率趨勢圖",
+          "description": "顯示一段時間內的入住率變化",
+          "data_source": "occupancy_trend"
+        },
+        {
+          "type": "bar",
+          "title": "週間入住對比",
+          "description": "比較一週各天的平均入住率",
+          "data_source": "weekday_occupancy"
+        },
+        {
+          "type": "stacked",
+          "title": "營位類型分析",
+          "description": "分析不同營位類型的入住情況",
+          "data_source": "site_type_occupancy"
+        }
+      ]
+    }
+  ],
+  "export_formats": ["pdf", "excel", "csv", "json"],
+  "scheduled_reports": [
+    {
+      "report_type": "booking_stats",
+      "frequency": "monthly",
+      "recipients": ["admin@example.com"],
+      "auto_generate": true
+    },
+    {
+      "report_type": "vacancy_analysis",
+      "frequency": "quarterly",
+      "recipients": ["admin@example.com"],
+      "auto_generate": true
+    }
+  ],
+  "dashboard_widgets": [
+    {
+      "id": "monthly_occupancy",
+      "name": "本月平均入住率",
+      "type": "single_value",
+      "data_source": "current_month_occupancy",
+      "refresh_rate": "daily"
+    },
+    {
+      "id": "monthly_revenue",
+      "name": "本月營業額",
+      "type": "single_value",
+      "data_source": "current_month_revenue",
+      "refresh_rate": "daily"
+    },
+    {
+      "id": "pending_bookings",
+      "name": "待確認預訂",
+      "type": "single_value",
+      "data_source": "pending_booking_count",
+      "refresh_rate": "hourly"
+    },
+    {
+      "id": "customer_satisfaction",
+      "name": "客戶滿意度",
+      "type": "single_value",
+      "data_source": "avg_rating",
+      "refresh_rate": "weekly"
+    }
+  ]
+} 

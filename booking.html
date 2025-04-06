@@ -1,0 +1,3039 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>預訂營位 - 寶山葡萄藤露營區</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css">
+    <!-- Google Cloud 整合 -->
+    <script src="gcloud-config.js"></script>
+    <style>
+        /* 預訂頁面特定樣式 */
+        .booking-hero {
+            height: 40vh;
+            min-height: 250px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('images/體驗大自然的寧靜與美好1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 頂部放大樣式 */
+        .logo-img {
+            width: 75px;  /* 原本大約是50px */
+            height: auto;
+        }
+        
+        header h1 {
+            font-size: 2.25rem;  /* 原本大約是1.5rem */
+        }
+
+        /* 導航圖示樣式 */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .nav-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;
+            height: 52px;
+            margin: 0 5px;
+            color: #4CAF50;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-icon:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-icon i {
+            font-size: 1.8rem;  /* 原本1.2rem */
+        }
+        
+        .nav-icon-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 1.05rem;  /* 原本0.7rem */
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-icon:hover .nav-icon-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-btn, header nav ul li a {
+            font-size: 1.2rem;  /* 原本大約是0.8rem */
+            padding: 12px 24px;  /* 增加padding */
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-icons {
+                margin-right: 0;
+            }
+            
+            .nav-icon {
+                width: 45px;
+                height: 45px;
+                margin: 0 3px;
+            }
+            
+            .nav-icon-tooltip {
+                display: none;
+            }
+        }
+
+        .booking-section {
+            padding: 60px 0;
+            background-color: #f9f9f9;
+        }
+
+        /* 預訂須知和價格區塊 */
+        .info-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .info-box {
+            flex: 0 0 48%;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        /* 新的橫排預訂須知樣式 */
+        .horizontal-info {
+            flex-direction: row;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .info-section {
+            flex: 1;
+            padding: 0 15px;
+        }
+
+        .info-section h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid rgba(76, 175, 80, 0.2);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .info-items, .price-items {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .info-item {
+            flex: 0 0 calc(50% - 15px);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            background-color: #f9f9f9;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .info-item:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .info-item i {
+            color: #4CAF50;
+            margin-right: 8px;
+            margin-top: 2px;
+            font-size: 0.9rem;
+        }
+
+        .price-item {
+            flex: 0 0 calc(50% - 15px);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background-color: #f9f9f9;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .price-item:hover {
+            background-color: #f0f0f0;
+            transform: translateY(-2px);
+        }
+
+        .price-item span:last-child {
+            font-weight: 600;
+            color: #4CAF50;
+        }
+
+        .price {
+            font-weight: 600;
+            color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        /* 勾選框容器樣式 */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            background-color: #f9f9f9;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: auto;
+            height: auto;
+            margin-right: 10px;
+            margin-top: 3px;
+            transform: scale(1.2);
+        }
+
+        .checkbox-container label {
+            display: inline;
+            margin-bottom: 0;
+            line-height: 1.4;
+        }
+        
+        .terms-label {
+            font-weight: normal;
+        }
+
+        .checkbox-container a {
+            color: #4CAF50;
+            text-decoration: underline;
+            font-weight: 600;
+        }
+
+        .checkbox-container a:hover {
+            color: #388E3C;
+        }
+
+        /* 確認說明樣式 */
+        .confirmation-note {
+            margin-bottom: 20px;
+            text-align: center;
+            color: #555;
+            font-size: 0.95rem;
+            font-style: italic;
+            padding: 5px 0;
+        }
+        
+        .confirmation-note p {
+            margin: 0;
+        }
+
+        /* 預訂表單和日曆區塊 */
+        .booking-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .calendar-container {
+            flex: 0 0 48%;
+            margin-bottom: 30px;
+        }
+
+        .calendar-box {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            height: 100%;
+        }
+
+        .booking-form-container {
+            flex: 0 0 48%;
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-row .form-group {
+            flex: 0 0 48%;
+        }
+
+        .error {
+            border-color: #e74c3c !important;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .success-message i {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+
+        .success-message h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .price-list {
+            margin-top: 30px;
+        }
+
+        .price-list h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .booking-info-list {
+            margin-top: 20px;
+        }
+
+        .booking-info-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .booking-info-list i {
+            color: #4CAF50;
+            margin-right: 10px;
+            margin-top: 4px;
+        }
+
+        .calendar {
+            margin-top: 30px;
+        }
+
+        .availability-legend {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+
+        .legend-color {
+            width: 15px;
+            height: 15px;
+            border-radius: 2px;
+            margin-right: 5px;
+        }
+
+        .available {
+            background-color: #4CAF50;
+        }
+
+        .limited {
+            background-color: #FFC107;
+        }
+
+        .unavailable {
+            background-color: #e74c3c;
+        }
+        
+        /* 日曆工具提示樣式 */
+        .calendar-tooltip {
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            pointer-events: none;
+            max-width: 200px;
+            border: 1px solid #eee;
+        }
+        
+        .tooltip-content {
+            padding: 10px 12px;
+        }
+        
+        .tooltip-title {
+            font-weight: 600;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+        
+        .tooltip-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .tooltip-value {
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-available {
+            color: #4CAF50;
+        }
+        
+        .status-limited {
+            color: #FFC107;
+        }
+        
+        .status-unavailable {
+            color: #F44336;
+        }
+
+        @media screen and (max-width: 992px) {
+            .info-item, .price-item {
+                flex: 0 0 100%;
+            }
+            
+            .horizontal-info {
+                flex-direction: column;
+                padding: 20px;
+            }
+            
+            .info-section {
+                padding: 0;
+                margin-bottom: 20px;
+            }
+            
+            .calendar-container, .booking-form-container {
+                flex: 0 0 100%;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-row .form-group {
+                flex: 0 0 100%;
+            }
+            
+            #availability-calendar {
+                max-height: 350px;
+            }
+            
+            .info-section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .info-item, .price-item {
+                padding: 6px 10px;
+                font-size: 0.95rem;
+            }
+        }
+
+        /* 頁面導航圖示 */
+        .page-icons {
+            position: fixed;
+            top: 90px;
+            right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        .page-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #333;
+            font-size: 1.5rem;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .page-icon:hover {
+            transform: translateY(-3px);
+            background-color: #4CAF50;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .page-icon-tooltip {
+            position: absolute;
+            right: 60px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .page-icon:hover .page-icon-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media screen and (max-width: 768px) {
+            .page-icons {
+                top: auto;
+                bottom: 20px;
+                right: 20px;
+                flex-direction: row;
+            }
+            
+            .page-icon-tooltip {
+                display: none;
+            }
+        }
+
+        /* FullCalendar 樣式定制 */
+        .fc-daygrid-day {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .fc-daygrid-day:hover {
+            background-color: rgba(76, 175, 80, 0.05);
+        }
+        
+        .fc-day-today {
+            background-color: rgba(76, 175, 80, 0.1) !important;
+        }
+        
+        .fc-day-available {
+            background-color: rgba(76, 175, 80, 0.2) !important;
+        }
+        
+        .fc-day-limited {
+            background-color: rgba(255, 193, 7, 0.2) !important;
+        }
+        
+        .fc-day-full {
+            background-color: rgba(231, 76, 60, 0.2) !important;
+        }
+        
+        .fc .fc-toolbar-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+        
+        .fc-button-primary {
+            background-color: #4CAF50 !important;
+            border-color: #4CAF50 !important;
+        }
+        
+        .fc-button-primary:hover,
+        .fc-button-primary:active {
+            background-color: #388E3C !important;
+            border-color: #388E3C !important;
+        }
+        
+        /* 增強日曆邊框線條 */
+        .fc-scrollgrid {
+            border: 2px solid #ddd !important;
+        }
+        
+        .fc-scrollgrid-section-header th,
+        .fc-col-header-cell {
+            border: 1px solid #ccc !important;
+            border-bottom: 2px solid #aaa !important;
+        }
+        
+        .fc-daygrid-day {
+            border: 1px solid #ccc !important;
+        }
+        
+        .fc-scrollgrid-section > td {
+            border: 1px solid #ccc !important;
+        }
+        
+        .fc th, .fc td {
+            border-style: solid !important;
+            border-color: #ccc !important;
+        }
+        
+        .legend-container {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            margin-right: 6px;
+            border-radius: 3px;
+        }
+        
+        .legend-available {
+            background-color: rgba(76, 175, 80, 0.2);
+        }
+        
+        .legend-limited {
+            background-color: rgba(255, 193, 7, 0.2);
+        }
+        
+        .legend-full {
+            background-color: rgba(231, 76, 60, 0.2);
+        }
+        
+        /* 日期預約詳情彈窗樣式 */
+        .date-popup {
+            position: absolute;
+            z-index: 1000;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 280px;
+            display: none;
+        }
+        
+        .date-popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .date-popup-header h4 {
+            margin: 0;
+            color: #2c3e50;
+        }
+        
+        .date-popup-close {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #7f8c8d;
+        }
+        
+        .date-popup-body {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .campsite-availability {
+            margin-bottom: 15px;
+        }
+        
+        .campsite-availability h5 {
+            margin: 0 0 8px 0;
+            font-size: 0.95rem;
+            color: #2c3e50;
+        }
+        
+        .availability-bar {
+            height: 8px;
+            border-radius: 4px;
+            background-color: #f1f1f1;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .availability-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            border-radius: 4px;
+        }
+        
+        .availability-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        /* 增強日曆日期樣式 */
+        #availability-calendar {
+            min-height: 400px;
+            margin-bottom: 15px;
+            background-color: white;
+        }
+        
+        #availability-calendar .fc-toolbar {
+            margin-bottom: 10px !important;
+        }
+        
+        #availability-calendar .fc-daygrid-day {
+            min-height: 40px;
+        }
+        
+        /* 確保日曆容器可見 */
+        .calendar-box {
+            min-height: 550px;
+            position: relative;
+        }
+        
+        /* 添加加載指示器 */
+        .calendar-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            display: none;
+        }
+        
+        .calendar-loading .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(76, 175, 80, 0.2);
+            border-top-color: #4CAF50;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+            <div class="logo" style="display: flex; align-items: center;">
+                <img src="images/葡萄藤L.png" alt="葡萄藤L" class="logo-img">
+                <h1 style="margin-left: 15px;"><a href="index.html" style="color: inherit; text-decoration: none;">寶山葡萄藤露營區</a></h1>
+            </div>
+            <nav>
+                <ul style="display: flex; align-items: center; margin: 0; padding: 0;">
+                    <li class="nav-icons">
+                        <a href="landscape.html" class="nav-icon">
+                            <i class="fas fa-mountain"></i>
+                            <span class="nav-icon-tooltip">絕美景觀</span>
+                        </a>
+                        <a href="camping-sites.html" class="nav-icon">
+                            <i class="fas fa-campground"></i>
+                            <span class="nav-icon-tooltip">多樣營位</span>
+                        </a>
+                        <a href="facilities.html" class="nav-icon">
+                            <i class="fas fa-shower"></i>
+                            <span class="nav-icon-tooltip">完善設施</span>
+                        </a>
+                        <a href="activities.html" class="nav-icon">
+                            <i class="fas fa-hiking"></i>
+                            <span class="nav-icon-tooltip">豐富活動</span>
+                        </a>
+                    </li>
+                    <li><a href="booking.html" class="booking-btn">立即預訂</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero booking-hero big-image-area">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 style="font-size: 2.5rem; margin-top: 30px;">預訂營位</h1>
+            <p style="font-size: 1.3rem; margin-top: 15px;">選擇理想的營位，開始您的露營之旅</p>
+        </div>
+    </section>
+
+    <section class="booking-section">
+        <div class="container">
+            <h2 class="section-title">開始您的露營之旅</h2>
+            
+            <!-- 預訂須知區塊 -->
+            <div class="info-container horizontal-info">
+                <div class="info-section">
+                    <h3><i class="fas fa-info-circle"></i> 預訂須知</h3>
+                    <div class="info-items">
+                        <div class="info-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>預訂至少3天前</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>入住：下午2點後</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-clock"></i>
+                            <span>退房：上午11點前</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-credit-card"></i>
+                            <span>需付50%訂金</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-undo"></i>
+                            <span>7天前可全額退款</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-cloud-rain"></i>
+                            <span>颱風可免費改期</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h3><i class="fas fa-tag"></i> 營位價格</h3>
+                    <div class="price-items" id="price-list">
+                        <div class="price-item">
+                            <span>草地營位</span>
+                            <span class="price grass-price">NT$ 1,200</span>
+                        </div>
+                        <div class="price-item">
+                            <span>木棧板營位</span>
+                            <span class="price wooden-price">NT$ 1,500</span>
+                        </div>
+                        <div class="price-item">
+                            <span>露營車營位</span>
+                            <span class="price rv-price">NT$ 1,800</span>
+                        </div>
+                        <div class="price-item">
+                            <span>週末及假日</span>
+                            <span class="price weekend-price">+NT$ 300</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 預訂表單和日曆 -->
+            <div class="booking-container">
+                <div class="booking-form-container">
+                    <h3><i class="fas fa-clipboard-list"></i> 預訂表單</h3>
+                    <form id="booking-form" class="booking-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="check-in">入住日期 *</label>
+                                <input type="date" id="check-in" name="check-in" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="check-out">退房日期 *</label>
+                                <input type="date" id="check-out" name="check-out" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="adults">成人人數 *</label>
+                                <select id="adults" name="adults" required>
+                                    <option value="">請選擇</option>
+                                    <option value="1">1位</option>
+                                    <option value="2">2位</option>
+                                    <option value="3">3位</option>
+                                    <option value="4">4位</option>
+                                    <option value="5">5位</option>
+                                    <option value="6">6位</option>
+                                    <option value="7">7位</option>
+                                    <option value="8">8位</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="children">兒童人數 (12歲以下)</label>
+                                <select id="children" name="children">
+                                    <option value="0">0位</option>
+                                    <option value="1">1位</option>
+                                    <option value="2">2位</option>
+                                    <option value="3">3位</option>
+                                    <option value="4">4位</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="site-type">營位類型 * <span id="available-count" style="font-size: 0.9rem; font-weight: normal; color: #4CAF50;"></span></label>
+                            <select id="site-type" name="site-type" required>
+                                <option value="">請選擇營位類型</option>
+                                <option value="grass">草地營位</option>
+                                <option value="wooden">木棧板營位</option>
+                                <option value="rv">露營車營位</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="name">姓名 *</label>
+                            <input type="text" id="name" name="name" placeholder="請輸入您的姓名" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">聯絡電話 *</label>
+                                <input type="tel" id="phone" name="phone" placeholder="請輸入您的聯絡電話" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">電子郵件 *</label>
+                                <input type="email" id="email" name="email" placeholder="請輸入您的電子郵件" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="special-requests">特殊需求或備註</label>
+                            <textarea id="special-requests" name="special-requests" placeholder="如有特殊需求或備註事項，請在此說明"></textarea>
+                        </div>
+                        
+                        <div class="form-group checkbox-container">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms" class="terms-label">
+                                我已閱讀並同意<a href="policy.html" target="_blank">營區規範與取消政策</a> *
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button type="submit" class="btn" style="width: 100%;">送出預訂申請</button>
+                        </div>
+                        
+                        <div class="confirmation-note">
+                            <p>填寫表單後，我們將在24小時內回覆確認。</p>
+                        </div>
+                    </form>
+                    
+                    <!-- 成功提交後顯示的訊息 -->
+                    <div id="success-message" class="success-message" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>預訂申請已成功送出！</h3>
+                        <p>感謝您選擇寶山葡萄藤露營區。我們已收到您的預訂申請，將在24小時內透過您提供的聯絡方式與您確認。</p>
+                        <p>您的預訂編號：<strong id="booking-id"></strong></p>
+                        <div style="margin-top: 30px;">
+                            <a href="index.html" class="btn">返回首頁</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="calendar-container">
+                    <div class="calendar-box">
+                        <h3>營位預約狀況</h3>
+                        
+                        <div id="availability-calendar"></div>
+                        
+                        <!-- 添加加載指示器 -->
+                        <div class="calendar-loading" id="calendar-loading">
+                            <div class="spinner"></div>
+                            <p>載入日曆資料中...</p>
+                        </div>
+                        
+                        <div class="legend-container">
+                            <div class="legend-item">
+                                <div class="legend-color legend-available"></div>
+                                <span>充足空位</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-limited"></div>
+                                <span>剩餘有限</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color legend-full"></div>
+                                <span>已滿</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 日期預約詳情彈窗 -->
+                        <div id="date-popup" class="date-popup">
+                            <div class="date-popup-header">
+                                <h4 id="popup-date">2023年8月15日</h4>
+                                <span class="date-popup-close">&times;</span>
+                            </div>
+                            <div class="date-popup-body">
+                                <div class="campsite-availability">
+                                    <h5>草地營位</h5>
+                                    <div class="availability-bar">
+                                        <div class="availability-fill" style="width: 70%; background-color: #4CAF50;"></div>
+                                    </div>
+                                    <div class="availability-text">
+                                        <span>已預約: <strong>7/10</strong></span>
+                                        <span>可預約: <strong>3</strong></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="campsite-availability">
+                                    <h5>木棧板營位</h5>
+                                    <div class="availability-bar">
+                                        <div class="availability-fill" style="width: 90%; background-color: #FFC107;"></div>
+                                    </div>
+                                    <div class="availability-text">
+                                        <span>已預約: <strong>7/8</strong></span>
+                                        <span>可預約: <strong>1</strong></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="campsite-availability">
+                                    <h5>露營車營位</h5>
+                                    <div class="availability-bar">
+                                        <div class="availability-fill" style="width: 100%; background-color: #E74C3C;"></div>
+                                    </div>
+                                    <div class="availability-text">
+                                        <span>已預約: <strong>5/5</strong></span>
+                                        <span>可預約: <strong>0</strong></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>寶山葡萄藤露營區</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 新竹市寶山</p>
+                    <p><i class="fas fa-phone"></i> (02) 2663-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@foreststar-camping.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>快速連結</h3>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="faq.html">常見問題</a></li>
+                        <li><a href="policy.html">營區規範</a></li>
+                        <li><a href="privacy.html">隱私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>關注我們</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 寶山葡萄藤露營區。保留所有權利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/zh-tw.js"></script>
+    <!-- 移除假資料庫載入腳本 -->
+
+    <script>
+      // 數據自動生成與初始化系統
+      const campDataSystem = {
+        isInitialized: false,
+        
+        // 檢查數據是否已存在（可能來自真實資料庫）
+        dataExists: function() {
+          try {
+            // 在生產環境下使用API檢查
+            if (window.gcpConfig && window.gcpConfig.isCloudEnvironment()) {
+              console.log('在雲端環境中檢查數據存在性');
+              return false; // 預設返回false，讓我們總是重新生成數據（未來連接真實數據庫時可修改）
+            }
+            
+            // 開發環境下檢查localStorage
+            const capacityData = localStorage.getItem('campsiteCapacity');
+            const bookingsData = localStorage.getItem('campingBookings');
+            const pricesData = localStorage.getItem('campsitePrices');
+            
+            return capacityData && bookingsData && pricesData;
+          } catch (e) {
+            console.error('檢查數據時發生錯誤:', e);
+            return false;
+          }
+        },
+        
+        // 初始化系統
+        init: async function() {
+          console.log('初始化營區數據系統...');
+          
+          if (this.isInitialized) {
+            console.log('數據系統已初始化，無需重複操作');
+            return Promise.resolve(true);
+          }
+          
+          // 確保GCP配置已初始化
+          if (window.gcpConfig && typeof window.gcpConfig.init === 'function') {
+            await window.gcpConfig.init();
+          }
+          
+          // 如果已有數據（可能來自真實資料庫），則不生成新數據
+          if (this.dataExists()) {
+            console.log('檢測到已存在數據，將使用現有數據');
+            this.isInitialized = true;
+            return Promise.resolve(true);
+          }
+          
+          console.log('未檢測到現有數據，開始生成模擬數據...');
+          
+          // 生成營位容量數據
+          this.generateCapacityData();
+          
+          // 生成預訂數據
+          this.generateBookingsData();
+          
+          // 生成價格數據
+          this.generatePriceData();
+          
+          this.isInitialized = true;
+          console.log('數據系統初始化完成');
+          return Promise.resolve(true);
+        },
+        
+        // 生成營位容量數據
+        generateCapacityData: function() {
+          const capacityData = {
+            grass: 15,   // 草地營位總數
+            wooden: 10,  // 木棧板營位總數
+            rv: 5        // 露營車營位總數
+          };
+          
+          try {
+            localStorage.setItem('campsiteCapacity', JSON.stringify(capacityData));
+            console.log('營位容量數據生成完成:', capacityData);
+          } catch (e) {
+            console.error('保存營位容量數據時發生錯誤:', e);
+          }
+          
+          return capacityData;
+        },
+        
+        // 生成預訂數據（模擬90天的隨機預訂）
+        generateBookingsData: function() {
+          const bookings = [];
+          const today = new Date();
+          
+          // 生成預訂ID的計數器
+          let bookingIdCounter = 10000;
+          
+          // 營位類型
+          const siteTypes = ['grass', 'wooden', 'rv'];
+          
+          // 預訂狀態
+          const statuses = ['confirmed', 'pending', 'cancelled'];
+          
+          // 生成90天內的隨機預訂
+          for (let i = 0; i < 50; i++) {
+            // 隨機選擇入住日期（從今天開始到90天內）
+            const checkInOffset = Math.floor(Math.random() * 85); // 最多預訂到85天後（留5天給退房）
+            const checkIn = new Date(today);
+            checkIn.setDate(checkIn.getDate() + checkInOffset);
+            
+            // 隨機選擇住宿天數（1-5晚）
+            const nights = Math.floor(Math.random() * 5) + 1;
+            
+            // 計算退房日期
+            const checkOut = new Date(checkIn);
+            checkOut.setDate(checkOut.getDate() + nights);
+            
+            // 隨機選擇營位類型
+            const siteType = siteTypes[Math.floor(Math.random() * siteTypes.length)];
+            
+            // 隨機選擇成人人數（1-4人）
+            const adults = Math.floor(Math.random() * 4) + 1;
+            
+            // 隨機選擇兒童人數（0-3人）
+            const children = Math.floor(Math.random() * 4);
+            
+            // 隨機選擇預訂狀態（已確認、待確認、已取消）
+            // 大多數預訂是已確認狀態
+            let status;
+            const statusRand = Math.random();
+            if (statusRand < 0.8) {
+              status = 'confirmed';
+            } else if (statusRand < 0.95) {
+              status = 'pending';
+            } else {
+              status = 'cancelled';
+            }
+            
+            // 構建預訂記錄
+            const booking = {
+              id: 'BK' + bookingIdCounter++,
+              checkIn: checkIn.toISOString().split('T')[0],
+              checkOut: checkOut.toISOString().split('T')[0],
+              nights: nights,
+              siteType: siteType,
+              adults: adults,
+              children: children,
+              totalPersons: adults + children,
+              status: status,
+              bookingDate: new Date(checkIn.getTime() - (Math.random() * 1000 * 60 * 60 * 24 * 14)).toISOString().split('T')[0], // 預訂日期在入住前1-14天
+              customerName: '模擬客戶',
+              customerPhone: '09' + Math.floor(10000000 + Math.random() * 90000000),
+              customerEmail: 'customer' + Math.floor(Math.random() * 1000) + '@example.com'
+            };
+            
+            bookings.push(booking);
+          }
+          
+          try {
+            localStorage.setItem('campingBookings', JSON.stringify(bookings));
+            console.log(`預訂數據生成完成: ${bookings.length} 條記錄`);
+          } catch (e) {
+            console.error('保存預訂數據時發生錯誤:', e);
+          }
+          
+          return bookings;
+        },
+        
+        // 生成價格數據
+        generatePriceData: function() {
+          const priceData = {
+            grass: 1200,     // 草地營位基本價格
+            wooden: 1500,    // 木棧板營位基本價格
+            rv: 1800,        // 露營車營位基本價格
+            weekend: 300,    // 週末加價
+            extraPerson: 200, // 額外人數加價
+            basePersons: 2    // 基本包含人數
+          };
+          
+          try {
+            localStorage.setItem('campsitePrices', JSON.stringify(priceData));
+            console.log('價格數據生成完成:', priceData);
+          } catch (e) {
+            console.error('保存價格數據時發生錯誤:', e);
+          }
+          
+          return priceData;
+        },
+        
+        // 驗證系統是否已初始化
+        isLoaded: function() {
+          return this.isInitialized;
+        }
+      };
+
+      document.addEventListener('DOMContentLoaded', function() {
+        // 確保數據已初始化
+        if (!campDataSystem.isLoaded()) {
+          campDataSystem.init().then(() => {
+            initializeBookingPage();
+          });
+        } else {
+          initializeBookingPage();
+        }
+        
+        // 初始化營位價格數據 (如果不存在)
+        function initializePriceData() {
+          console.log('檢查營位價格數據...');
+          let priceData;
+          
+          try {
+            priceData = JSON.parse(localStorage.getItem('campsitePrices') || '{}');
+          } catch (error) {
+            console.error('讀取價格數據失敗:', error);
+            priceData = {};
+          }
+          
+          // 檢查是否有價格數據，如果沒有則設置默認值
+          const defaultPrices = {
+            grass: 1200,
+            wooden: 1500,
+            rv: 1800,
+            weekend: 300,
+            extraPerson: 200,
+            basePersons: 2
+          };
+          
+          // 檢查是否需要初始化數據
+          let needsInit = false;
+          for (const key in defaultPrices) {
+            if (priceData[key] === undefined) {
+              needsInit = true;
+              break;
+            }
+          }
+          
+          // 如果需要初始化，則設置默認值
+          if (needsInit) {
+            console.log('初始化營位價格數據...');
+            localStorage.setItem('campsitePrices', JSON.stringify(defaultPrices));
+            console.log('價格數據初始化完成:', defaultPrices);
+          } else {
+            console.log('價格數據已存在，無需初始化');
+          }
+        }
+        
+        // 頁面載入時初始化價格數據
+        initializePriceData();
+
+        function initializeBookingPage() {
+          console.log('開始初始化預訂頁面...');
+          // 獲取日期輸入元素
+          const checkInDate = document.getElementById('check-in');
+          const checkOutDate = document.getElementById('check-out');
+          const adultsSelect = document.getElementById('adults');
+          const childrenSelect = document.getElementById('children');
+          const siteTypeSelect = document.getElementById('site-type');
+          const availabilityResults = document.querySelector('.availability-results');
+          
+          // 確保頁面載入完畢
+          window.addEventListener('load', function() {
+            console.log('頁面完全載入，確保所有資源已就緒');
+          });
+          
+          // 首先初始化價格數據
+          console.log('初始化價格數據...');
+          initializePriceData();
+          
+          // 然後更新營位價格顯示
+          console.log('更新價格顯示...');
+          updatePriceDisplay();
+          
+          // 初始化日曆
+          console.log('初始化日曆...');
+          initializeAvailabilityCalendar();
+          
+          // 設置日期彈窗事件
+          console.log('設置日期彈窗事件...');
+          setupDatePopup();
+          
+          // 顯示日曆加載指示器
+          const calendarLoading = document.getElementById('calendar-loading');
+          if (calendarLoading) {
+            calendarLoading.style.display = 'block';
+          }
+
+          // 設定日期輸入的最小值為今天，最大值為三個月後
+          const today = new Date();
+          today.setHours(0, 0, 0, 0); // 設置為當天0時0分0秒
+          
+          const tomorrow = new Date(today);
+          tomorrow.setDate(tomorrow.getDate() + 1);
+          
+          // 計算三個月後的日期
+          const threeMonthsLater = new Date(today);
+          threeMonthsLater.setMonth(today.getMonth() + 3);
+          
+          if (checkInDate) {
+            checkInDate.min = formatDate(today);
+            checkInDate.max = formatDate(threeMonthsLater);
+            checkInDate.value = formatDate(today);
+            
+            // 添加提示文字
+            const checkInLabel = document.querySelector('label[for="check-in"]');
+            if (checkInLabel) {
+              checkInLabel.innerHTML = '入住日期 * <span style="font-size: 0.8em; font-weight: normal; color: #666;">(最多可預約三個月內)</span>';
+            }
+          }
+          
+          if (checkOutDate) {
+            checkOutDate.min = formatDate(tomorrow);
+            checkOutDate.max = formatDate(threeMonthsLater);
+            checkOutDate.value = formatDate(tomorrow);
+          }
+          
+          // 檢查並防止選擇過去的日期
+          function preventPastDateSelection() {
+            const currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0); // 設置為當天0時0分0秒
+            
+            if (checkInDate) {
+              checkInDate.addEventListener('input', function() {
+                const selectedDate = new Date(this.value);
+                if (selectedDate < currentDate) {
+                  alert('不能選擇過去的日期');
+                  this.value = formatDate(currentDate);
+                }
+                
+                // 確保退房日期至少比入住日期晚一天
+                if (checkOutDate) {
+                  const minCheckoutDate = new Date(selectedDate);
+                  minCheckoutDate.setDate(minCheckoutDate.getDate() + 1);
+                  checkOutDate.min = formatDate(minCheckoutDate);
+                  
+                  // 如果目前的退房日期早於或等於更新後的入住日期，自動調整退房日期
+                  const checkoutSelectedDate = new Date(checkOutDate.value);
+                  if (checkoutSelectedDate <= selectedDate) {
+                    checkOutDate.value = formatDate(minCheckoutDate);
+                    // 更新價格計算
+                    calculateTotalPrice();
+                  }
+                }
+              });
+            }
+            
+            if (checkOutDate) {
+              checkOutDate.addEventListener('input', function() {
+                const selectedDate = new Date(this.value);
+                const checkInSelectedDate = checkInDate ? new Date(checkInDate.value) : new Date();
+                
+                // 計算最小可選退房日期 (入住日期+1天)
+                const minDate = new Date(checkInSelectedDate);
+                minDate.setDate(minDate.getDate() + 1);
+                
+                if (selectedDate < minDate) {
+                  alert('退房日期必須至少在入住日期後一天');
+                  this.value = formatDate(minDate);
+                }
+              });
+            }
+          }
+          
+          // 執行日期檢核
+          preventPastDateSelection();
+          
+          // 設置日期選擇更新營位可用數量的事件
+          console.log('正在設置日期選擇事件...');
+          setupDateChangeEvents();
+          
+          // 初始計算價格
+          setTimeout(calculateTotalPrice, 500);
+        }
+
+        // 更新營位價格顯示
+        function updatePriceDisplay() {
+          console.log('正在更新營位價格顯示...');
+          
+          // 確保價格元素存在
+          const grassPriceElement = document.querySelector('.grass-price');
+          const woodenPriceElement = document.querySelector('.wooden-price');
+          const rvPriceElement = document.querySelector('.rv-price');
+          const weekendPriceElement = document.querySelector('.weekend-price');
+          
+          if (!grassPriceElement || !woodenPriceElement || !rvPriceElement || !weekendPriceElement) {
+            console.error('無法找到部分價格顯示元素，價格更新失敗');
+            return;
+          }
+          
+          // 從 localStorage 讀取價格設定
+          let priceData;
+          try {
+            priceData = JSON.parse(localStorage.getItem('campsitePrices') || '{}');
+            console.log('從localStorage讀取的價格設定:', priceData);
+          } catch (error) {
+            console.error('讀取價格設定錯誤:', error);
+            priceData = {};
+          }
+          
+          // 設定默認價格
+          const defaultPrices = {
+            grass: 1200,
+            wooden: 1500,
+            rv: 1800,
+            weekend: 300,
+            extraPerson: 200,
+            basePersons: 2
+          };
+          
+          // 合併默認價格和從localStorage讀取的價格
+          const prices = {
+            grass: priceData.grass || defaultPrices.grass,
+            wooden: priceData.wooden || defaultPrices.wooden,
+            rv: priceData.rv || defaultPrices.rv,
+            weekend: priceData.weekend || defaultPrices.weekend,
+            extraPerson: priceData.extraPerson || defaultPrices.extraPerson,
+            basePersons: priceData.basePersons || defaultPrices.basePersons
+          };
+          
+          console.log('最終使用的價格設定:', prices);
+          
+          // 更新DOM中的價格顯示
+          try {
+            grassPriceElement.textContent = `NT$ ${prices.grass.toLocaleString()}`;
+            woodenPriceElement.textContent = `NT$ ${prices.wooden.toLocaleString()}`;
+            rvPriceElement.textContent = `NT$ ${prices.rv.toLocaleString()}`;
+            weekendPriceElement.textContent = `+NT$ ${prices.weekend.toLocaleString()}`;
+            
+            console.log('價格更新成功：', {
+              草地營位: prices.grass,
+              木棧板營位: prices.wooden,
+              露營車營位: prices.rv,
+              週末加價: prices.weekend
+            });
+            
+            // 將最新價格保存到localStorage (確保與後台設定同步)
+            localStorage.setItem('campsitePrices', JSON.stringify(prices));
+          } catch (error) {
+            console.error('更新價格顯示時發生錯誤:', error);
+          }
+        }
+
+        // 計算預訂總價
+        function calculateTotalPrice() {
+          console.log('開始計算預訂總價...');
+          
+          // 獲取輸入資料
+          const checkInDateStr = document.getElementById('check-in').value;
+          const checkOutDateStr = document.getElementById('check-out').value;
+          const siteType = document.getElementById('site-type').value;
+          const adults = parseInt(document.getElementById('adults').value || '0');
+          const children = parseInt(document.getElementById('children').value || '0');
+          
+          // 檢查是否有足夠信息計算價格
+          if (!checkInDateStr || !checkOutDateStr || !siteType || isNaN(adults)) {
+            console.log('資料不足，無法計算價格');
+            return;
+          }
+          
+          // 解析日期
+          const checkInDate = new Date(checkInDateStr);
+          const checkOutDate = new Date(checkOutDateStr);
+          
+          // 計算住宿天數
+          const nights = Math.round((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+          if (nights <= 0) {
+            console.log('住宿天數無效');
+            return;
+          }
+          
+          console.log(`預訂天數: ${nights} 晚`);
+          
+          // 取得價格設定
+          let priceData;
+          try {
+            priceData = JSON.parse(localStorage.getItem('campsitePrices') || '{}');
+          } catch (error) {
+            console.error('讀取價格設定錯誤:', error);
+            priceData = {};
+          }
+          
+          // 取得基本價格設定
+          const prices = {
+            grass: priceData.grass || 1200,
+            wooden: priceData.wooden || 1500,
+            rv: priceData.rv || 1800,
+            weekend: priceData.weekend || 300,
+            extraPerson: priceData.extraPerson || 200,
+            basePersons: priceData.basePersons || 2
+          };
+          
+          // 根據營位類型獲取基本價格
+          let basePrice = 0;
+          switch (siteType) {
+            case 'grass':
+              basePrice = prices.grass;
+              break;
+            case 'wooden':
+              basePrice = prices.wooden;
+              break;
+            case 'rv':
+              basePrice = prices.rv;
+              break;
+            default:
+              console.log('未知的營位類型');
+              return;
+          }
+          
+          // 計算基本費用 (每晚營位費)
+          const baseFee = basePrice * nights;
+          console.log(`基本費用: ${baseFee} (${basePrice} x ${nights}晚)`);
+          
+          // 計算週末加價
+          let weekendFee = 0;
+          for (let i = 0; i < nights; i++) {
+            const currentDate = new Date(checkInDate);
+            currentDate.setDate(checkInDate.getDate() + i);
+            // 週五和週六算週末
+            if (currentDate.getDay() === 5 || currentDate.getDay() === 6) {
+              weekendFee += prices.weekend;
+            }
+          }
+          console.log(`週末加價: ${weekendFee}`);
+          
+          // 計算額外人數費用
+          const totalPersons = adults + children;
+          let extraPersonFee = 0;
+          if (totalPersons > prices.basePersons) {
+            extraPersonFee = (totalPersons - prices.basePersons) * prices.extraPerson * nights;
+          }
+          console.log(`額外人數費用: ${extraPersonFee} (${totalPersons - prices.basePersons} 人 x ${prices.extraPerson} x ${nights}晚)`);
+          
+          // 計算總價
+          const totalPrice = baseFee + weekendFee + extraPersonFee;
+          console.log(`總價: ${totalPrice}`);
+          
+          // 更新顯示
+          document.getElementById('booking-days').textContent = `${nights} 晚`;
+          document.getElementById('base-price').textContent = `NT$ ${baseFee.toLocaleString()}`;
+          document.getElementById('weekend-fee').textContent = `NT$ ${weekendFee.toLocaleString()}`;
+          document.getElementById('extra-person-fee').textContent = `NT$ ${extraPersonFee.toLocaleString()}`;
+          document.getElementById('total-price').textContent = `NT$ ${totalPrice.toLocaleString()}`;
+          
+          // 顯示或隱藏相關行
+          document.getElementById('weekend-fee-row').style.display = weekendFee > 0 ? 'flex' : 'none';
+          document.getElementById('extra-person-row').style.display = extraPersonFee > 0 ? 'flex' : 'none';
+          
+          // 保存計算結果到表單數據中供後續使用
+          window.bookingTotalPrice = {
+            nights: nights,
+            baseFee: baseFee,
+            weekendFee: weekendFee,
+            extraPersonFee: extraPersonFee,
+            totalPrice: totalPrice
+          };
+          
+          return totalPrice;
+        }
+
+        // 設置價格計算相關事件
+        function setupPriceCalculationEvents() {
+          // 獲取相關輸入元素
+          const checkInDate = document.getElementById('check-in');
+          const checkOutDate = document.getElementById('check-out');
+          const siteTypeSelect = document.getElementById('site-type');
+          const adultsSelect = document.getElementById('adults');
+          const childrenSelect = document.getElementById('children');
+          
+          // 當任何輸入改變時更新價格
+          const updatePrice = function() {
+            calculateTotalPrice();
+          };
+          
+          // 綁定事件
+          if (checkInDate) checkInDate.addEventListener('change', updatePrice);
+          if (checkOutDate) checkOutDate.addEventListener('change', updatePrice);
+          if (siteTypeSelect) siteTypeSelect.addEventListener('change', updatePrice);
+          if (adultsSelect) adultsSelect.addEventListener('change', updatePrice);
+          if (childrenSelect) childrenSelect.addEventListener('change', updatePrice);
+        }
+
+        // 初始化營位可用狀態日曆
+        function initializeAvailabilityCalendar() {
+          console.log('開始初始化日曆...');
+          const calendarEl = document.getElementById('availability-calendar');
+          if (!calendarEl) {
+            console.error('找不到日曆元素 #availability-calendar');
+            return;
+          }
+          
+          // 檢查FullCalendar庫是否正確加載
+          if (typeof FullCalendar === 'undefined') {
+            console.error('FullCalendar庫未加載，請確認<script>標籤順序正確');
+            return;
+          }
+          
+          try {
+            console.log('正在創建FullCalendar實例...');
+            const calendar = new FullCalendar.Calendar(calendarEl, {
+              initialView: 'dayGridMonth',
+              headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth'
+              },
+              locale: 'zh-tw',
+              firstDay: 1, // 週一開始
+              buttonText: {
+                today: '今天'
+              },
+              dateClick: function(info) {
+                console.log('點擊日期:', info.dateStr);
+                showDateDetails(info.dateStr);
+              }
+            });
+            
+            console.log('嘗試渲染日曆...');
+            calendar.render();
+            console.log('日曆渲染成功!');
+            window.campCalendar = calendar; // 保存到全局，以便後續使用
+            
+            // 更新日曆事件
+            setTimeout(function() {
+              updateAvailabilityData();
+            }, 500);
+            
+          } catch (error) {
+            console.error('初始化日曆時發生錯誤:', error);
+            
+            // 顯示錯誤信息在日曆容器中
+            calendarEl.innerHTML = `
+              <div style="text-align: center; padding: 30px; background: #ffeeee; border: 1px solid #ffcccc; border-radius: 8px;">
+                <p style="color: #cc0000; font-weight: bold;">日曆載入失敗</p>
+                <p>請確認您的網絡連接並刷新頁面重試</p>
+                <p style="font-size: 0.9em; color: #666;">錯誤信息: ${error.message}</p>
+              </div>
+            `;
+          }
+        }
+        
+        // 更新營位可用狀態數據
+        function updateAvailabilityData() {
+          console.log('開始更新營位可用狀態數據...');
+          
+          // 檢查是否在雲端環境
+          const isCloudEnv = window.gcpConfig && window.gcpConfig.isCloudEnvironment();
+          if (isCloudEnv && window.gcpConfig.useCloudDatabase()) {
+            console.log('在雲端環境使用API獲取可用狀態數據');
+            // 這裡可以添加API調用代碼
+            // 目前使用生成數據的方式，為未來API整合做準備
+            generateFallbackAvailabilityData();
+            return;
+          }
+          
+          try {
+            // 從localStorage獲取營位容量和預訂資料
+            let capacityData = {};
+            let bookingsData = [];
+            
+            try {
+              capacityData = JSON.parse(localStorage.getItem('campsiteCapacity') || '{}');
+              console.log('讀取到的容量數據:', capacityData);
+            } catch (e) {
+              console.error('讀取容量數據失敗:', e);
+              capacityData = {};
+            }
+            
+            try {
+              bookingsData = JSON.parse(localStorage.getItem('campingBookings') || '[]');
+              console.log(`讀取到的預訂數據: ${bookingsData.length} 條記錄`);
+            } catch (e) {
+              console.error('讀取預訂數據失敗:', e);
+              bookingsData = [];
+            }
+            
+            // 設定默認營位總數
+            const totalCapacity = {
+              grass: capacityData.grass || 15,
+              wooden: capacityData.wooden || 10,
+              rv: capacityData.rv || 5
+            };
+            
+            console.log('使用的總容量設定:', totalCapacity);
+            
+            // 計算未來90天的可用性
+            const availabilityData = [];
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            for (let i = 0; i < 90; i++) {
+              const currentDate = new Date(today);
+              currentDate.setDate(currentDate.getDate() + i);
+              const dateStr = currentDate.toISOString().split('T')[0];
+              
+              // 找出當天的所有預訂
+              const dayBookings = bookingsData.filter(booking => {
+                const bookingCheckIn = new Date(booking.checkIn);
+                const bookingCheckOut = new Date(booking.checkOut);
+                
+                // 檢查當前日期是否在預訂範圍內
+                return (booking.status === 'confirmed' || booking.status === 'pending') && 
+                       (currentDate >= bookingCheckIn && currentDate < bookingCheckOut);
+              });
+              
+              // 計算每種營位類型的已使用數量
+              const usedCapacity = {
+                grass: 0,
+                wooden: 0,
+                rv: 0
+              };
+              
+              dayBookings.forEach(booking => {
+                if (booking.siteType === 'grass') {
+                  usedCapacity.grass++;
+                } else if (booking.siteType === 'wooden') {
+                  usedCapacity.wooden++;
+                } else if (booking.siteType === 'rv') {
+                  usedCapacity.rv++;
+                }
+              });
+              
+              // 計算可用率
+              const availability = {
+                date: dateStr,
+                grass: {
+                  total: totalCapacity.grass,
+                  used: usedCapacity.grass,
+                  available: Math.max(0, totalCapacity.grass - usedCapacity.grass)
+                },
+                wooden: {
+                  total: totalCapacity.wooden,
+                  used: usedCapacity.wooden,
+                  available: Math.max(0, totalCapacity.wooden - usedCapacity.wooden)
+                },
+                rv: {
+                  total: totalCapacity.rv,
+                  used: usedCapacity.rv,
+                  available: Math.max(0, totalCapacity.rv - usedCapacity.rv)
+                }
+              };
+              
+              // 計算總體可用率
+              const totalSites = totalCapacity.grass + totalCapacity.wooden + totalCapacity.rv;
+              const totalUsed = usedCapacity.grass + usedCapacity.wooden + usedCapacity.rv;
+              const overallRate = 1 - (totalUsed / totalSites);
+              
+              // 確定狀態 (充足、有限、已滿)
+              let status;
+              if (overallRate <= 0.1) {
+                status = 'full'; // 已滿 (<=10%)
+              } else if (overallRate <= 0.3) {
+                status = 'limited'; // 有限 (<=30%)
+              } else {
+                status = 'available'; // 充足 (>30%)
+              }
+              
+              availability.status = status;
+              availabilityData.push(availability);
+            }
+            
+            console.log(`生成了 ${availabilityData.length} 天的可用性數據`);
+            
+            // 儲存可用性數據到localStorage
+            localStorage.setItem('availabilityData', JSON.stringify(availabilityData));
+            console.log('可用性數據已保存到localStorage');
+            
+            // 更新日曆顯示
+            updateCalendarEvents(availabilityData);
+            
+          } catch (error) {
+            console.error('更新營位可用狀態時發生錯誤:', error);
+            // 出錯時生成替代數據
+            generateFallbackAvailabilityData();
+          }
+        }
+        
+        // 生成後備可用性數據（當讀取真實數據失敗時使用）
+        function generateFallbackAvailabilityData() {
+          console.log('生成後備可用性數據...');
+          
+          // 從localStorage讀取營位總數設定，如果不存在則使用默認值
+          let capacityData = {};
+          try {
+            capacityData = JSON.parse(localStorage.getItem('campsiteCapacity') || '{}');
+          } catch (e) {
+            console.error('讀取容量數據失敗:', e);
+          }
+          
+          // 設定默認營位總數
+          const totalCapacity = {
+            grass: capacityData.grass || 15,
+            wooden: capacityData.wooden || 10,
+            rv: capacityData.rv || 5
+          };
+          
+          // 生成未來90天的可用性數據
+          const availabilityData = [];
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          for (let i = 0; i < 90; i++) {
+            const currentDate = new Date(today);
+            currentDate.setDate(currentDate.getDate() + i);
+            
+            // 隨機生成各類型營位的預訂數量（模擬數據）
+            const randomFactor = Math.random();
+            const isWeekend = (currentDate.getDay() === 0 || currentDate.getDay() === 6);
+            const occupationRate = isWeekend ? 0.7 + (randomFactor * 0.3) : 0.3 + (randomFactor * 0.4);
+            
+            const grassUsed = Math.round(totalCapacity.grass * occupationRate * (0.8 + (randomFactor * 0.4)));
+            const woodenUsed = Math.round(totalCapacity.wooden * occupationRate * (0.9 + (randomFactor * 0.2)));
+            const rvUsed = Math.round(totalCapacity.rv * occupationRate * (0.7 + (randomFactor * 0.5)));
+            
+            // 確保使用數量不超過總容量
+            const grassUsedCapped = Math.min(grassUsed, totalCapacity.grass);
+            const woodenUsedCapped = Math.min(woodenUsed, totalCapacity.wooden);
+            const rvUsedCapped = Math.min(rvUsed, totalCapacity.rv);
+            
+            // 計算各類型營位的可用數量
+            const grassAvailable = totalCapacity.grass - grassUsedCapped;
+            const woodenAvailable = totalCapacity.wooden - woodenUsedCapped;
+            const rvAvailable = totalCapacity.rv - rvUsedCapped;
+            
+            // 計算總體可用率
+            const totalSites = totalCapacity.grass + totalCapacity.wooden + totalCapacity.rv;
+            const totalUsed = grassUsedCapped + woodenUsedCapped + rvUsedCapped;
+            const overallRate = 1 - (totalUsed / totalSites);
+            
+            // 確定狀態 (充足、有限、已滿)
+            let status;
+            if (overallRate <= 0.1) {
+              status = 'full'; // 已滿 (<=10%)
+            } else if (overallRate <= 0.3) {
+              status = 'limited'; // 有限 (<=30%)
+            } else {
+              status = 'available'; // 充足 (>30%)
+            }
+            
+            availabilityData.push({
+              date: formatDate(currentDate),
+              status: status,
+              grass: {
+                total: totalCapacity.grass,
+                used: grassUsedCapped,
+                available: grassAvailable
+              },
+              wooden: {
+                total: totalCapacity.wooden,
+                used: woodenUsedCapped,
+                available: woodenAvailable
+              },
+              rv: {
+                total: totalCapacity.rv,
+                used: rvUsedCapped,
+                available: rvAvailable
+              }
+            });
+          }
+          
+          // 儲存可用性數據到localStorage
+          localStorage.setItem('availabilityData', JSON.stringify(availabilityData));
+          console.log('後備可用性數據已保存到localStorage');
+          
+          // 更新日曆顯示
+          updateCalendarEvents(availabilityData);
+        }
+        
+        // 更新日曆事件
+        function updateCalendarEvents(availabilityData) {
+          console.log('更新日曆事件...');
+          if (!window.campCalendar) {
+            console.error('campCalendar未初始化，無法更新日曆事件');
+            // 嘗試重新初始化日曆
+            setTimeout(function() {
+              initializeAvailabilityCalendar();
+            }, 500);
+            return;
+          }
+          
+          try {
+            // 移除所有現有事件
+            window.campCalendar.removeAllEvents();
+            console.log('已清除現有日曆事件');
+            
+            // 如果沒有提供數據或數據為空，則生成默認可用數據
+            if (!availabilityData || availabilityData.length === 0) {
+              console.log('沒有可用性數據，生成默認數據');
+              // 觸發後備數據生成
+              generateFallbackAvailabilityData();
+              return;
+            }
+            
+            // 根據可用性數據生成事件
+            const events = [];
+            
+            // 使用提供的可用性數據
+            console.log(`使用提供的可用性數據，共 ${availabilityData.length} 天`);
+            availabilityData.forEach(day => {
+              // 根據狀態選擇背景顏色
+              let backgroundColor;
+              let classNames;
+              
+              if (day.status === 'available') {
+                backgroundColor = 'rgba(76, 175, 80, 0.2)'; // 綠色淺色背景
+                classNames = ['fc-day-available'];
+              } else if (day.status === 'limited') {
+                backgroundColor = 'rgba(255, 193, 7, 0.2)'; // 黃色淺色背景
+                classNames = ['fc-day-limited'];
+              } else {
+                backgroundColor = 'rgba(231, 76, 60, 0.2)'; // 紅色淺色背景
+                classNames = ['fc-day-full'];
+              }
+              
+              events.push({
+                start: day.date,
+                end: day.date,
+                allDay: true,
+                display: 'background',
+                backgroundColor: backgroundColor,
+                classNames: classNames,
+                extendedProps: {
+                  status: day.status,
+                  date: day.date,
+                  grass: day.grass,
+                  wooden: day.wooden,
+                  rv: day.rv
+                }
+              });
+            });
+            
+            // 添加事件
+            window.campCalendar.addEventSource(events);
+            
+            // 隱藏加載指示器
+            const loadingEl = document.getElementById('calendar-loading');
+            if (loadingEl) {
+              loadingEl.style.display = 'none';
+            }
+            
+            console.log('日曆事件更新成功');
+          } catch (error) {
+            console.error('更新日曆事件時發生錯誤:', error);
+            
+            // 顯示錯誤提示
+            const calendarEl = document.getElementById('availability-calendar');
+            if (calendarEl) {
+              calendarEl.innerHTML = `
+                <div style="text-align: center; padding: 30px; background: #ffeeee; border: 1px solid #ffcccc; border-radius: 8px;">
+                  <p style="color: #cc0000; font-weight: bold;">日曆載入失敗</p>
+                  <p>請確認您的網絡連接並刷新頁面重試</p>
+                  <p style="font-size: 0.9em; color: #666;">錯誤信息: ${error.message}</p>
+                </div>
+              `;
+            }
+          }
+        }
+        
+        // 設置日期彈窗事件
+        function setupDatePopup() {
+          // 關閉按鈕點擊事件
+          const closeBtn = document.querySelector('.date-popup-close');
+          if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+              const popup = document.getElementById('date-popup');
+              if (popup) popup.style.display = 'none';
+            });
+          }
+          
+          // 點擊其他區域關閉彈窗
+          document.addEventListener('click', function(event) {
+            const popup = document.getElementById('date-popup');
+            const calendar = document.getElementById('availability-calendar');
+            
+            // 如果點擊的不是彈窗內容，也不是日曆中的日期，則關閉彈窗
+            if (popup && popup.style.display === 'block' && 
+                !popup.contains(event.target) && 
+                !(calendar && calendar.contains(event.target) && event.target.closest('.fc-daygrid-day'))) {
+              popup.style.display = 'none';
+            }
+          });
+        }
+        
+        // 顯示日期詳情
+        function showDateDetails(dateStr) {
+          // 從localStorage獲取可用性數據
+          const availabilityData = JSON.parse(localStorage.getItem('availabilityData') || '[]');
+          const dayData = availabilityData.find(day => day.date === dateStr);
+          
+          const popup = document.getElementById('date-popup');
+          if (!popup) {
+            console.error('找不到date-popup元素');
+            return;
+          }
+          
+          if (!dayData) {
+            // 如果找不到該日期的數據，生成全部可用的預設數據
+            const capacityData = JSON.parse(localStorage.getItem('campsiteCapacity') || '{}');
+            const defaultData = {
+              grass: {
+                total: capacityData.grass || 10,
+                used: 0,
+                available: capacityData.grass || 10
+              },
+              wooden: {
+                total: capacityData.wooden || 8,
+                used: 0,
+                available: capacityData.wooden || 8
+              },
+              rv: {
+                total: capacityData.rv || 5,
+                used: 0,
+                available: capacityData.rv || 5
+              }
+            };
+            
+            // 更新彈窗標題日期
+            const date = new Date(dateStr);
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const popupDateElement = document.getElementById('popup-date');
+            if (popupDateElement) {
+              popupDateElement.textContent = date.toLocaleDateString('zh-TW', options);
+            }
+            
+            // 更新各類型營位的可用情況
+            updateAvailabilityBar('草地營位', defaultData.grass);
+            updateAvailabilityBar('木棧板營位', defaultData.wooden);
+            updateAvailabilityBar('露營車營位', defaultData.rv);
+          } else {
+            // 更新彈窗標題日期
+            const date = new Date(dateStr);
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const popupDateElement = document.getElementById('popup-date');
+            if (popupDateElement) {
+              popupDateElement.textContent = date.toLocaleDateString('zh-TW', options);
+            }
+            
+            // 更新各類型營位的可用情況
+            updateAvailabilityBar('草地營位', dayData.grass);
+            updateAvailabilityBar('木棧板營位', dayData.wooden);
+            updateAvailabilityBar('露營車營位', dayData.rv);
+          }
+          
+          // 顯示彈窗
+          popup.style.display = 'block';
+        }
+        
+        // 更新可用性條
+        function updateAvailabilityBar(type, data) {
+          const popup = document.getElementById('date-popup');
+          if (!popup) return;
+          
+          const containers = popup.querySelectorAll('.campsite-availability');
+          let container;
+          
+          for (let i = 0; i < containers.length; i++) {
+            if (containers[i].querySelector('h5').textContent === type) {
+              container = containers[i];
+              break;
+            }
+          }
+          
+          if (!container) return;
+          
+          const fillBar = container.querySelector('.availability-fill');
+          const usedText = container.querySelector('.availability-text span:first-child strong');
+          const availableText = container.querySelector('.availability-text span:last-child strong');
+          
+          // 確保數據存在
+          if (!data) {
+            // 如果數據不存在，假設全部可用
+            const capacityData = JSON.parse(localStorage.getItem('campsiteCapacity') || '{}');
+            let total = 10; // 預設值
+            
+            if (type === '草地營位') {
+              total = capacityData.grass || 10;
+            } else if (type === '木棧板營位') {
+              total = capacityData.wooden || 8;
+            } else if (type === '露營車營位') {
+              total = capacityData.rv || 5;
+            }
+            
+            data = {
+              total: total,
+              used: 0,
+              available: total
+            };
+          }
+          
+          // 更新填充條寬度和顏色
+          const usageRate = data.used / data.total;
+          if (fillBar) {
+            fillBar.style.width = (usageRate * 100) + '%';
+            
+            // 根據使用率設置顏色
+            if (usageRate > 0.9) {
+              fillBar.style.backgroundColor = '#E74C3C'; // 紅色 - 幾乎滿了
+            } else if (usageRate > 0.7) {
+              fillBar.style.backgroundColor = '#FFC107'; // 黃色 - 快滿了
+            } else {
+              fillBar.style.backgroundColor = '#4CAF50'; // 綠色 - 充足
+            }
+          }
+          
+          // 更新文字
+          if (usedText) usedText.textContent = data.used + '/' + data.total;
+          if (availableText) availableText.textContent = data.available;
+        }
+        
+        // 計算彈窗位置
+        function positionPopup(dateStr) {
+          const popup = document.getElementById('date-popup');
+          const calendarEl = document.getElementById('availability-calendar');
+          
+          if (!calendarEl || !popup) return;
+          
+          try {
+            // 查找具有該日期的日元素
+            const dayEl = calendarEl.querySelector(`td.fc-day[data-date="${dateStr}"]`) || 
+                         calendarEl.querySelector(`td[data-date="${dateStr}"]`);
+            
+            if (!dayEl) {
+              // 日期元素未找到，居中顯示
+              popup.style.top = '50%';
+              popup.style.left = '50%';
+              popup.style.transform = 'translate(-50%, -50%)';
+              return;
+            }
+            
+            const rect = dayEl.getBoundingClientRect();
+            
+            // 設置固定在選擇日期的右下方
+            let left = rect.right + 5; // 日期單元格右側偏移5px
+            let top = rect.bottom + 5; // 日期單元格底部偏移5px
+            
+            // 調整視窗邊緣修正
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const popupWidth = popup.offsetWidth;
+            const popupHeight = popup.offsetHeight;
+            
+            // 確保不會超出右側邊界
+            if (left + popupWidth > windowWidth - 20) {
+              left = rect.left - popupWidth - 5; // 如果右側放不下，改放左側
+              
+              // 如果左側也放不下，則置於日期上方或下方居中
+              if (left < 20) {
+                left = rect.left + (rect.width - popupWidth) / 2;
+                
+                // 如果寬度不夠，則靠左顯示
+                if (left < 20) {
+                  left = 20;
+                }
+              }
+            }
+            
+            // 確保不會超出底部邊界
+            if (top + popupHeight > windowHeight - 20) {
+              top = rect.top - popupHeight - 5; // 如果底部放不下，改放上方
+              
+              // 如果上方也放不下，則盡可能靠近頂部但保持在視窗內
+              if (top < 20) {
+                top = 20;
+              }
+            }
+            
+            // 考慮滾動位置
+            left += window.pageXOffset;
+            top += window.pageYOffset;
+            
+            // 重置transform
+            popup.style.transform = 'none';
+            
+            // 設置彈窗位置
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+            
+          } catch (error) {
+            console.error('定位彈窗時發生錯誤:', error);
+            // 後備方案，居中顯示
+            popup.style.top = '50%';
+            popup.style.left = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+          }
+        }
+        
+        // 設置日期選擇更新營位可用數量的事件
+        function setupDateChangeEvents() {
+          // 實現日期選擇更新營位可用數量的邏輯
+        }
+
+        // 為預訂表單添加提交處理
+        const bookingForm = document.getElementById('booking-form');
+        if (bookingForm) {
+          bookingForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // 驗證表單
+            if (validateBookingForm()) {
+              // 處理預訂
+              processBooking();
+            }
+          });
+        }
+        
+        // 驗證預訂表單
+        function validateBookingForm() {
+          // 獲取表單字段
+          const name = document.getElementById('name');
+          const phone = document.getElementById('phone');
+          const email = document.getElementById('email');
+          const checkIn = document.getElementById('check-in');
+          const checkOut = document.getElementById('check-out');
+          const adults = document.getElementById('adults');
+          const siteType = document.getElementById('site-type');
+          const terms = document.getElementById('terms');
+          
+          let isValid = true;
+          
+          // 重置所有錯誤狀態
+          const inputs = [name, phone, email, checkIn, checkOut, adults, siteType];
+          inputs.forEach(input => {
+            input.classList.remove('error');
+            const errorEl = input.parentElement.querySelector('.error-message');
+            if (errorEl) errorEl.remove();
+          });
+          
+          // 驗證表單字段
+          if (!name.value.trim()) {
+            addError(name, '請輸入您的姓名');
+            isValid = false;
+          }
+          
+          if (!phone.value.trim()) {
+            addError(phone, '請輸入您的聯絡電話');
+            isValid = false;
+          } else if (!isValidPhone(phone.value)) {
+            addError(phone, '請輸入有效的聯絡電話');
+            isValid = false;
+          }
+          
+          if (!email.value.trim()) {
+            addError(email, '請輸入您的電子郵件');
+            isValid = false;
+          } else if (!isValidEmail(email.value)) {
+            addError(email, '請輸入有效的電子郵件');
+            isValid = false;
+          }
+          
+          if (!checkIn.value) {
+            addError(checkIn, '請選擇入住日期');
+            isValid = false;
+          }
+          
+          if (!checkOut.value) {
+            addError(checkOut, '請選擇退房日期');
+            isValid = false;
+          }
+          
+          if (!adults.value) {
+            addError(adults, '請選擇成人人數');
+            isValid = false;
+          }
+          
+          if (!siteType.value) {
+            addError(siteType, '請選擇營位類型');
+            isValid = false;
+          }
+          
+          if (!terms.checked) {
+            addError(terms, '請同意營區規範與取消政策');
+            isValid = false;
+          }
+          
+          // 驗證入住和退房日期
+          if (checkIn.value && checkOut.value) {
+            const startDate = new Date(checkIn.value);
+            const endDate = new Date(checkOut.value);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            if (startDate < today) {
+              addError(checkIn, '入住日期不能早於今天');
+              isValid = false;
+            }
+            
+            if (endDate <= startDate) {
+              addError(checkOut, '退房日期必須晚於入住日期');
+              isValid = false;
+            }
+          }
+          
+          // 檢查所選營位是否有空位
+          if (isValid && siteType.value && checkIn.value && checkOut.value) {
+            const siteAvailability = checkSiteAvailability(siteType.value, checkIn.value, checkOut.value);
+            if (!siteAvailability.available) {
+              addError(siteType, `所選時間段內的${siteAvailability.message}`);
+              isValid = false;
+            }
+          }
+          
+          return isValid;
+        }
+        
+        // 添加錯誤提示
+        function addError(element, message) {
+          element.classList.add('error');
+          const errorMessage = document.createElement('div');
+          errorMessage.className = 'error-message';
+          errorMessage.textContent = message;
+          element.parentElement.appendChild(errorMessage);
+        }
+        
+        // 驗證電話號碼
+        function isValidPhone(phone) {
+          // 台灣手機格式驗證（09開頭加8位數字）
+          return /^09\d{8}$/.test(phone.replace(/\s+/g, ''));
+        }
+        
+        // 驗證電子郵件
+        function isValidEmail(email) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        
+        // 檢查營位是否有空位
+        function checkSiteAvailability(siteType, checkInDate, checkOutDate) {
+          try {
+            // 從localStorage獲取可用性數據
+            const availabilityData = JSON.parse(localStorage.getItem('availabilityData') || '[]');
+            
+            // 計算入住日期範圍
+            const startDate = new Date(checkInDate);
+            const endDate = new Date(checkOutDate);
+            const dates = [];
+            
+            const currentDate = new Date(startDate);
+            while (currentDate < endDate) {
+              dates.push(currentDate.toISOString().split('T')[0]);
+              currentDate.setDate(currentDate.getDate() + 1);
+            }
+            
+            // 檢查每一天的可用性
+            for (const dateStr of dates) {
+              const dayData = availabilityData.find(day => day.date === dateStr);
+              
+              if (!dayData) continue; // 如果沒有數據，跳過
+              
+              let available = 0;
+              let total = 0;
+              
+              if (siteType === 'grass') {
+                available = dayData.grass.available;
+                total = dayData.grass.total;
+              } else if (siteType === 'wooden') {
+                available = dayData.wooden.available;
+                total = dayData.wooden.total;
+              } else if (siteType === 'rv') {
+                available = dayData.rv.available;
+                total = dayData.rv.total;
+              }
+              
+              if (available <= 0) {
+                // 如果某一天沒有空位，返回不可用
+                const siteTypeName = siteType === 'grass' ? '草地營位' : 
+                                   siteType === 'wooden' ? '木棧板營位' : '露營車營位';
+                                   
+                const dateParts = dateStr.split('-');
+                const formattedDate = `${dateParts[1]}月${dateParts[2]}日`;
+                                   
+                return {
+                  available: false,
+                  message: `${siteTypeName}已滿（${formattedDate}）`
+                };
+              }
+            }
+            
+            // 所有日期都有空位
+            return {
+              available: true
+            };
+            
+          } catch (error) {
+            console.error('檢查營位可用性時發生錯誤:', error);
+            return {
+              available: true // 出錯時默認為可用，避免阻止用戶預訂
+            };
+          }
+        }
+        
+        // 處理預訂
+        function processBooking() {
+          // 獲取表單數據
+          const name = document.getElementById('name').value;
+          const phone = document.getElementById('phone').value;
+          const email = document.getElementById('email').value;
+          const checkInDate = document.getElementById('check-in').value;
+          const checkOutDate = document.getElementById('check-out').value;
+          const adults = parseInt(document.getElementById('adults').value);
+          const children = parseInt(document.getElementById('children').value || '0');
+          const siteType = document.getElementById('site-type').value;
+          const specialRequests = document.getElementById('special-requests').value;
+          
+          // 計算住宿天數
+          const startDate = new Date(checkInDate);
+          const endDate = new Date(checkOutDate);
+          const nights = Math.round((endDate - startDate) / (1000 * 60 * 60 * 24));
+          
+          // 計算總價
+          const totalPrice = window.bookingTotalPrice ? window.bookingTotalPrice.totalPrice : calculateTotalPrice();
+          
+          // 生成預訂ID（使用日期 + 隨機數生成唯一ID）
+          const uniqueId = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+          const bookingId = 'BK' + uniqueId.toUpperCase();
+          
+          // 構建預訂對象
+          const booking = {
+            id: bookingId,
+            customerName: name,
+            customerPhone: phone,
+            customerEmail: email,
+            checkIn: checkInDate,
+            checkOut: checkOutDate,
+            nights: nights,
+            adults: adults,
+            children: children,
+            totalPersons: adults + children,
+            siteType: siteType,
+            specialRequests: specialRequests,
+            bookingDate: new Date().toISOString().split('T')[0],
+            totalPrice: totalPrice,
+            status: 'pending' // 初始狀態為待確認
+          };
+          
+          // 保存預訂到localStorage
+          saveBooking(booking);
+          
+          // 顯示成功訊息
+          showBookingSuccess(booking);
+        }
+        
+        // 保存預訂到localStorage
+        function saveBooking(booking) {
+          try {
+            // 從localStorage獲取現有預訂
+            let bookings = [];
+            try {
+              bookings = JSON.parse(localStorage.getItem('campingBookings') || '[]');
+            } catch (e) {
+              console.error('讀取預訂數據失敗，使用空數組:', e);
+              bookings = [];
+            }
+            
+            // 添加新預訂
+            bookings.push(booking);
+            
+            // 保存回localStorage
+            localStorage.setItem('campingBookings', JSON.stringify(bookings));
+            console.log('預訂已保存:', booking);
+            
+            // 更新可用性數據
+            updateAvailabilityData();
+            
+          } catch (error) {
+            console.error('保存預訂時發生錯誤:', error);
+            // 發生錯誤也顯示成功訊息，避免用戶重複提交
+          }
+        }
+        
+        // 顯示預訂成功訊息
+        function showBookingSuccess(booking) {
+          // 隱藏表單
+          const bookingForm = document.getElementById('booking-form');
+          const successMessage = document.getElementById('success-message');
+          
+          if (bookingForm && successMessage) {
+            bookingForm.style.display = 'none';
+            successMessage.style.display = 'block';
+            
+            // 設置預訂編號
+            const bookingIdElement = document.getElementById('booking-id');
+            if (bookingIdElement) {
+              bookingIdElement.textContent = booking.id;
+            }
+          }
+        }
+      });
+    </script>
+
+    <!-- 確保日曆正確顯示 -->
+    <script>
+      // 確保日曆正確初始化
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM加載完成，確保日曆初始化...');
+        
+        // 檢查GCP配置
+        if (window.gcpConfig) {
+          console.log(`當前環境: ${window.gcpConfig.environment}`);
+        }
+        
+        // 日期格式化函數（用於顯示日曆）
+        function formatDate(date) {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, '0');
+          const day = String(date.getDate()).padStart(2, '0');
+          return `${year}-${month}-${day}`;
+        }
+        
+        // 檢查日曆元素是否存在
+        const calendarEl = document.getElementById('availability-calendar');
+        if (!calendarEl) {
+          console.error('找不到日曆元素 #availability-calendar');
+          return;
+        }
+        
+        // 檢查FullCalendar庫是否加載
+        if (typeof FullCalendar === 'undefined') {
+          console.error('FullCalendar庫未加載');
+          
+          // 嘗試重新加載FullCalendar
+          const fcScript = document.createElement('script');
+          fcScript.src = 'https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js';
+          fcScript.onload = function() {
+            const localeScript = document.createElement('script');
+            localeScript.src = 'https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales/zh-tw.js';
+            localeScript.onload = initializeCalendar;
+            document.head.appendChild(localeScript);
+          };
+          document.head.appendChild(fcScript);
+          return;
+        }
+        
+        // 初始化日曆
+        initializeCalendar();
+        
+        function initializeCalendar() {
+          console.log('初始化日曆...');
+          
+          // 根據環境設置配置參數
+          const calendarConfig = {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth'
+            },
+            locale: 'zh-tw',
+            firstDay: 1, // 週一開始
+            buttonText: {
+              today: '今天'
+            },
+            dateClick: function(info) {
+              console.log('點擊日期:', info.dateStr);
+              showDateDetails(info.dateStr);
+            }
+          };
+          
+          // 在生產環境中可能需要額外的配置
+          if (window.gcpConfig && window.gcpConfig.isCloudEnvironment()) {
+            // 在雲端環境可以添加其他配置
+            calendarConfig.eventSources = [
+              // 可以從API獲取事件
+              // { url: `${window.gcpConfig.apiBaseUrl}/events` }
+            ];
+          }
+          
+          const calendar = new FullCalendar.Calendar(calendarEl, calendarConfig);
+          
+          calendar.render();
+          console.log('日曆渲染成功!');
+          
+          // 如果全局變數不存在，則設置它
+          window.campCalendar = calendar;
+          
+          // 更新日曆數據
+          setTimeout(function() {
+            if (window.gcpConfig && window.gcpConfig.isCloudEnvironment() && window.gcpConfig.useCloudDatabase()) {
+              console.log('雲環境下，使用API獲取可用性數據');
+              // 未來可以添加從API獲取數據的代碼
+              generateAndUpdateAvailabilityData();
+            } else {
+              generateAndUpdateAvailabilityData();
+            }
+          }, 500);
+        }
+        
+        // 簡化版的營位可用性數據生成和更新功能
+        function generateAndUpdateAvailabilityData() {
+          console.log('生成營位可用性數據...');
+          
+          // 從localStorage讀取營位總數設定，如果不存在則使用默認值
+          let capacityData = {};
+          try {
+            capacityData = JSON.parse(localStorage.getItem('campsiteCapacity') || '{}');
+          } catch (e) {
+            console.error('讀取容量數據失敗:', e);
+          }
+          
+          // 設定默認營位總數
+          const totalCapacity = {
+            grass: capacityData.grass || 15,
+            wooden: capacityData.wooden || 10,
+            rv: capacityData.rv || 5
+          };
+          
+          // 生成未來90天的可用性數據
+          const availabilityData = [];
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          for (let i = 0; i < 90; i++) {
+            const currentDate = new Date(today);
+            currentDate.setDate(currentDate.getDate() + i);
+            
+            // 隨機生成各類型營位的預訂數量（模擬數據）
+            const randomFactor = Math.random();
+            const isWeekend = (currentDate.getDay() === 0 || currentDate.getDay() === 6);
+            const occupationRate = isWeekend ? 0.7 + (randomFactor * 0.3) : 0.3 + (randomFactor * 0.4);
+            
+            const grassUsed = Math.round(totalCapacity.grass * occupationRate * (0.8 + (randomFactor * 0.4)));
+            const woodenUsed = Math.round(totalCapacity.wooden * occupationRate * (0.9 + (randomFactor * 0.2)));
+            const rvUsed = Math.round(totalCapacity.rv * occupationRate * (0.7 + (randomFactor * 0.5)));
+            
+            // 確保使用數量不超過總容量
+            const grassUsedCapped = Math.min(grassUsed, totalCapacity.grass);
+            const woodenUsedCapped = Math.min(woodenUsed, totalCapacity.wooden);
+            const rvUsedCapped = Math.min(rvUsed, totalCapacity.rv);
+            
+            // 計算各類型營位的可用數量
+            const grassAvailable = totalCapacity.grass - grassUsedCapped;
+            const woodenAvailable = totalCapacity.wooden - woodenUsedCapped;
+            const rvAvailable = totalCapacity.rv - rvUsedCapped;
+            
+            // 計算總體可用率
+            const totalSites = totalCapacity.grass + totalCapacity.wooden + totalCapacity.rv;
+            const totalUsed = grassUsedCapped + woodenUsedCapped + rvUsedCapped;
+            const overallRate = 1 - (totalUsed / totalSites);
+            
+            // 確定狀態 (充足、有限、已滿)
+            let status;
+            if (overallRate <= 0.1) {
+              status = 'full'; // 已滿 (<=10%)
+            } else if (overallRate <= 0.3) {
+              status = 'limited'; // 有限 (<=30%)
+            } else {
+              status = 'available'; // 充足 (>30%)
+            }
+            
+            availabilityData.push({
+              date: formatDate(currentDate),
+              status: status,
+              grass: {
+                total: totalCapacity.grass,
+                used: grassUsedCapped,
+                available: grassAvailable
+              },
+              wooden: {
+                total: totalCapacity.wooden,
+                used: woodenUsedCapped,
+                available: woodenAvailable
+              },
+              rv: {
+                total: totalCapacity.rv,
+                used: rvUsedCapped,
+                available: rvAvailable
+              }
+            });
+          }
+          
+          // 儲存可用性數據到localStorage
+          localStorage.setItem('availabilityData', JSON.stringify(availabilityData));
+          console.log('可用性數據已保存到localStorage');
+          
+          // 更新日曆顯示
+          updateCalendarEvents(availabilityData);
+        }
+        
+        // 更新日曆事件
+        function updateCalendarEvents(availabilityData) {
+          console.log('更新日曆事件...');
+          if (!window.campCalendar) {
+            console.error('campCalendar未初始化，無法更新日曆事件');
+            return;
+          }
+          
+          try {
+            // 移除所有現有事件
+            window.campCalendar.removeAllEvents();
+            
+            // 添加新事件
+            const events = [];
+            
+            // 使用提供的可用性數據
+            availabilityData.forEach(day => {
+              // 根據狀態選擇背景顏色
+              let backgroundColor;
+              let classNames;
+              
+              if (day.status === 'available') {
+                backgroundColor = 'rgba(76, 175, 80, 0.2)'; // 綠色淺色背景
+                classNames = ['fc-day-available'];
+              } else if (day.status === 'limited') {
+                backgroundColor = 'rgba(255, 193, 7, 0.2)'; // 黃色淺色背景
+                classNames = ['fc-day-limited'];
+              } else {
+                backgroundColor = 'rgba(231, 76, 60, 0.2)'; // 紅色淺色背景
+                classNames = ['fc-day-full'];
+              }
+              
+              events.push({
+                start: day.date,
+                end: day.date,
+                allDay: true,
+                display: 'background',
+                backgroundColor: backgroundColor,
+                classNames: classNames,
+                extendedProps: {
+                  status: day.status,
+                  date: day.date,
+                  grass: day.grass,
+                  wooden: day.wooden,
+                  rv: day.rv
+                }
+              });
+            });
+            
+            // 添加事件
+            window.campCalendar.addEventSource(events);
+            
+            // 隱藏加載指示器
+            const loadingEl = document.getElementById('calendar-loading');
+            if (loadingEl) {
+              loadingEl.style.display = 'none';
+            }
+            
+            console.log('日曆事件更新成功');
+          } catch (error) {
+            console.error('更新日曆事件時發生錯誤:', error);
+          }
+        }
+        
+        // 顯示日期詳情彈窗
+        function showDateDetails(dateStr) {
+          // 從localStorage獲取可用性數據
+          let availabilityData;
+          try {
+            availabilityData = JSON.parse(localStorage.getItem('availabilityData') || '[]');
+          } catch (error) {
+            console.error('讀取可用性數據失敗:', error);
+            availabilityData = [];
+          }
+          
+          const dayData = availabilityData.find(day => day.date === dateStr);
+          
+          const popup = document.getElementById('date-popup');
+          if (!popup) {
+            console.error('找不到date-popup元素');
+            return;
+          }
+          
+          // 如果找不到該日期的數據，生成預設數據
+          if (!dayData) {
+            const capacityData = JSON.parse(localStorage.getItem('campsiteCapacity') || '{}');
+            const defaultData = {
+              grass: {
+                total: capacityData.grass || 10,
+                used: 0,
+                available: capacityData.grass || 10
+              },
+              wooden: {
+                total: capacityData.wooden || 8,
+                used: 0,
+                available: capacityData.wooden || 8
+              },
+              rv: {
+                total: capacityData.rv || 5,
+                used: 0,
+                available: capacityData.rv || 5
+              }
+            };
+            
+            // 更新彈窗標題日期
+            const date = new Date(dateStr);
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const popupDateElement = document.getElementById('popup-date');
+            if (popupDateElement) {
+              popupDateElement.textContent = date.toLocaleDateString('zh-TW', options);
+            }
+            
+            // 更新各類型營位的可用情況
+            updateAvailabilityBar('草地營位', defaultData.grass);
+            updateAvailabilityBar('木棧板營位', defaultData.wooden);
+            updateAvailabilityBar('露營車營位', defaultData.rv);
+          } else {
+            // 更新彈窗標題日期
+            const date = new Date(dateStr);
+            const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' };
+            const popupDateElement = document.getElementById('popup-date');
+            if (popupDateElement) {
+              popupDateElement.textContent = date.toLocaleDateString('zh-TW', options);
+            }
+            
+            // 更新各類型營位的可用情況
+            updateAvailabilityBar('草地營位', dayData.grass);
+            updateAvailabilityBar('木棧板營位', dayData.wooden);
+            updateAvailabilityBar('露營車營位', dayData.rv);
+          }
+          
+          // 計算彈窗位置
+          positionPopup(dateStr);
+          
+          // 顯示彈窗
+          popup.style.display = 'block';
+        }
+        
+        // 計算彈窗位置
+        function positionPopup(dateStr) {
+          const popup = document.getElementById('date-popup');
+          const calendarEl = document.getElementById('availability-calendar');
+          
+          if (!calendarEl || !popup) return;
+          
+          try {
+            // 查找具有該日期的日元素
+            const dayEl = calendarEl.querySelector(`td.fc-day[data-date="${dateStr}"]`) || 
+                          calendarEl.querySelector(`td[data-date="${dateStr}"]`);
+            
+            // 如果找不到日期元素，則居中顯示
+            if (!dayEl) {
+              popup.style.top = '50%';
+              popup.style.left = '50%';
+              popup.style.transform = 'translate(-50%, -50%)';
+              return;
+            }
+            
+            const calendarRect = calendarEl.getBoundingClientRect();
+            const dayRect = dayEl.getBoundingClientRect();
+            
+            // 計算相對於日曆容器的位置
+            const relativeTop = dayRect.top - calendarRect.top + dayRect.height;
+            const relativeLeft = dayRect.left - calendarRect.left + (dayRect.width / 2);
+            
+            // 設置彈窗位置，顯示在日期下方，水平居中
+            popup.style.top = relativeTop + 'px';
+            popup.style.left = relativeLeft + 'px';
+            popup.style.transform = 'translateX(-50%)';
+            
+          } catch (error) {
+            console.error('定位彈窗時發生錯誤:', error);
+            // 退回方案：居中顯示
+            popup.style.top = '50%';
+            popup.style.left = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+          }
+        }
+        
+        // 更新可用性條
+        function updateAvailabilityBar(type, data) {
+          const popup = document.getElementById('date-popup');
+          if (!popup) return;
+          
+          const containers = popup.querySelectorAll('.campsite-availability');
+          let container;
+          
+          for (let i = 0; i < containers.length; i++) {
+            if (containers[i].querySelector('h5').textContent === type) {
+              container = containers[i];
+              break;
+            }
+          }
+          
+          if (!container) return;
+          
+          const fillBar = container.querySelector('.availability-fill');
+          const usedText = container.querySelector('.availability-text span:first-child strong');
+          const availableText = container.querySelector('.availability-text span:last-child strong');
+          
+          // 確保數據存在
+          if (!data) {
+            const capacityData = JSON.parse(localStorage.getItem('campsiteCapacity') || '{}');
+            let total = 10; // 預設值
+            
+            if (type === '草地營位') {
+              total = capacityData.grass || 10;
+            } else if (type === '木棧板營位') {
+              total = capacityData.wooden || 8;
+            } else if (type === '露營車營位') {
+              total = capacityData.rv || 5;
+            }
+            
+            data = {
+              total: total,
+              used: 0,
+              available: total
+            };
+          }
+          
+          // 更新填充條寬度和顏色
+          const usageRate = data.used / data.total;
+          if (fillBar) {
+            fillBar.style.width = (usageRate * 100) + '%';
+            
+            // 根據使用率設置顏色
+            if (usageRate > 0.9) {
+              fillBar.style.backgroundColor = '#E74C3C'; // 紅色 - 幾乎滿了
+            } else if (usageRate > 0.7) {
+              fillBar.style.backgroundColor = '#FFC107'; // 黃色 - 快滿了
+            } else {
+              fillBar.style.backgroundColor = '#4CAF50'; // 綠色 - 充足
+            }
+          }
+          
+          // 更新文字
+          if (usedText) usedText.textContent = data.used + '/' + data.total;
+          if (availableText) availableText.textContent = data.available;
+        }
+        
+        // 設置日期彈窗關閉事件
+        const closeBtn = document.querySelector('.date-popup-close');
+        if (closeBtn) {
+          closeBtn.addEventListener('click', function() {
+            const popup = document.getElementById('date-popup');
+            if (popup) popup.style.display = 'none';
+          });
+        }
+        
+        // 點擊彈窗外部關閉
+        document.addEventListener('click', function(event) {
+          const popup = document.getElementById('date-popup');
+          if (popup && popup.style.display === 'block' && 
+              !popup.contains(event.target) && 
+              !event.target.closest('.fc-daygrid-day')) {
+            popup.style.display = 'none';
+          }
+        });
+      });
+    </script>
+
+    <!-- 過場動畫 -->
+    <div id="preloader">
+        <div class="spinner"></div>
+    </div>
+</body>
+</html> 

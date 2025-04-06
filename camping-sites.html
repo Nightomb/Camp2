@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>營位介紹 - 寶山葡萄藤露營區</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* 營位介紹頁面特定樣式 */
+        .sites-hero {
+            height: 40vh;
+            min-height: 250px;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/體驗大自然的寧靜與美好1.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* 頂部放大樣式 */
+        .logo-img {
+            width: 75px;  /* 原本大約是50px */
+            height: auto;
+        }
+        
+        header h1 {
+            font-size: 2.25rem;  /* 原本大約是1.5rem */
+        }
+
+        /* 導航圖示樣式 */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .nav-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px; 
+            height: 52px;
+            margin: 0 5px; /* 統一間隔 */
+            color: #4CAF50;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-icon:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-icon i {
+            font-size: 1.8rem;  /* 原本1.2rem */
+        }
+        
+        .nav-icon-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 1.05rem;  /* 原本0.7rem */
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-icon:hover .nav-icon-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-btn, header nav ul li a {
+            font-size: 1.2rem;  /* 原本大約是0.8rem */
+            padding: 12px 24px;  /* 增加padding */
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-icons {
+                margin-right: 0;
+            }
+            
+            .nav-icon {
+                width: 45px;
+                height: 45px;
+                margin: 0 3px;
+            }
+            
+            .nav-icon-tooltip {
+                display: none;
+            }
+        }
+
+        .site-section {
+            padding: 80px 0;
+        }
+
+        .site-section:nth-child(even) {
+            background-color: #f5f8fa;
+        }
+
+        .site-section:nth-child(odd) {
+            background-color: white;
+        }
+
+        .site-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin: 40px 0;
+        }
+
+        .site-details {
+            flex: 0 0 50%;
+            padding: 0 30px;
+        }
+
+        .site-details h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .site-details h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #4CAF50;
+        }
+
+        .site-gallery {
+            flex: 0 0 50%;
+            padding: 0 15px;
+        }
+
+        .site-gallery img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .site-features {
+            margin: 20px 0;
+        }
+
+        .site-features li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .site-features li i {
+            position: absolute;
+            left: 0;
+            top: 5px;
+            color: #4CAF50;
+        }
+
+        .site-price {
+            margin: 25px 0;
+            padding: 15px;
+            background-color: #f5f8fa;
+            border-left: 4px solid #4CAF50;
+        }
+
+        .site-price-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #2c3e50;
+        }
+
+        .site-gallery-thumbnails {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .thumbnail {
+            flex: 0 0 calc(33.333% - 10px);
+            margin: 0 5px;
+            cursor: pointer;
+            border-radius: 4px;
+            overflow: hidden;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .thumbnail:hover {
+            opacity: 1;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 80px;
+            object-fit: cover;
+        }
+
+        .site-cta {
+            margin-top: 25px;
+        }
+
+        /* 響應式設計 */
+        @media screen and (max-width: 992px) {
+            .site-container {
+                flex-direction: column;
+            }
+
+            .site-details, .site-gallery {
+                flex: 0 0 100%;
+                padding: 15px;
+            }
+
+            .site-gallery {
+                order: -1;
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+            <div class="logo" style="display: flex; align-items: center;">
+                <img src="images/葡萄藤L.png" alt="葡萄藤L" class="logo-img">
+                <h1 style="margin-left: 15px;"><a href="index.html" style="color: inherit; text-decoration: none;">寶山葡萄藤露營區</a></h1>
+            </div>
+            <nav>
+                <ul style="display: flex; align-items: center; margin: 0; padding: 0;">
+                    <li class="nav-icons">
+                        <a href="landscape.html" class="nav-icon">
+                            <i class="fas fa-mountain"></i>
+                            <span class="nav-icon-tooltip">絕美景觀</span>
+                        </a>
+                        <a href="facilities.html" class="nav-icon">
+                            <i class="fas fa-shower"></i>
+                            <span class="nav-icon-tooltip">完善設施</span>
+                        </a>
+                        <a href="activities.html" class="nav-icon">
+                            <i class="fas fa-hiking"></i>
+                            <span class="nav-icon-tooltip">豐富活動</span>
+                        </a>
+                    </li>
+                    <li><a href="booking.html" class="booking-btn">立即預訂</a></li>
+                    <li><a href="contact.html">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero sites-hero big-image-area">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1 style="font-size: 2.5rem; margin-top: 30px;">營位介紹</h1>
+            <p style="font-size: 1.3rem; margin-top: 15px;">多樣化的營位選擇，滿足不同露營需求</p>
+        </div>
+    </section>
+
+    <section id="grass" class="site-section">
+        <div class="container">
+            <h2 class="section-title">草地營位</h2>
+            <div class="site-container">
+                <div class="site-details">
+                    <h3>自然舒適的草地空間</h3>
+                    <p>我們的草地營位位於露營區最平坦的區域，提供鬆軟舒適的草地，是帳篷露營的理想選擇。每個營位都有充足的空間，適合家庭或朋友小團體共享美好的露營時光。</p>
+                    
+                    <div class="site-features">
+                        <h4>營位特色：</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> 平整柔軟的草地，適合各種帳篷搭設</li>
+                            <li><i class="fas fa-check-circle"></i> 每個營位約15坪空間，提供舒適的活動範圍</li>
+                            <li><i class="fas fa-check-circle"></i> 配備營火區和野餐桌</li>
+                            <li><i class="fas fa-check-circle"></i> 附近有水電插座和照明設施</li>
+                            <li><i class="fas fa-check-circle"></i> 步行可輕鬆抵達公共衛浴和廚房區</li>
+                            <li><i class="fas fa-check-circle"></i> 自然樹蔭遮蔽，夏日也能保持涼爽</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="site-price">
+                        <div class="site-price-title">價格資訊：</div>
+                        <p>平日：NT$ 1,200 / 帳 / 晚<br>
+                        週末及國定假日：NT$ 1,500 / 帳 / 晚<br>
+                        (最多可容納4位成人，額外每人加收NT$ 300)</p>
+                    </div>
+                    
+                    <div class="site-cta">
+                        <a href="booking.html" class="btn">立即預訂</a>
+                    </div>
+                </div>
+                <div class="site-gallery">
+                    <img src="images/grass-site-main.jpg" alt="草地營位" id="grass-main-image">
+                    <div class="site-gallery-thumbnails">
+                        <div class="thumbnail" onclick="document.getElementById('grass-main-image').src='images/grass-site-1.jpg'">
+                            <img src="images/grass-site-1.jpg" alt="草地營位夜景">
+                        </div>
+                        <div class="thumbnail" onclick="document.getElementById('grass-main-image').src='images/grass-site-2.jpg'">
+                            <img src="images/grass-site-2.jpg" alt="草地營位日景">
+                        </div>
+                        <div class="thumbnail" onclick="document.getElementById('grass-main-image').src='images/grass-site-3.jpg'">
+                            <img src="images/grass-site-3.jpg" alt="草地營位全景">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="wooden" class="site-section">
+        <div class="container">
+            <h2 class="section-title">木棧板營位</h2>
+            <div class="site-container">
+                <div class="site-gallery">
+                    <img src="images/wooden-deck-main.jpg" alt="木棧板營位" id="wooden-main-image">
+                    <div class="site-gallery-thumbnails">
+                        <div class="thumbnail" onclick="document.getElementById('wooden-main-image').src='images/wooden-deck-1.jpg'">
+                            <img src="images/wooden-deck-1.jpg" alt="木棧板營位夜景">
+                        </div>
+                        <div class="thumbnail" onclick="document.getElementById('wooden-main-image').src='images/wooden-deck-2.jpg'">
+                            <img src="images/wooden-deck-2.jpg" alt="木棧板營位日景">
+                        </div>
+                        <div class="thumbnail" onclick="document.getElementById('wooden-main-image').src='images/wooden-deck-3.jpg'">
+                            <img src="images/wooden-deck-3.jpg" alt="木棧板營位全景">
+                        </div>
+                    </div>
+                </div>
+                <div class="site-details">
+                    <h3>平整乾燥的木棧板營位</h3>
+                    <p>木棧板營位是我們最受歡迎的選擇之一，特別是在雨季。平整的木板地面確保您的帳篷保持乾燥，不受潮濕地面的影響，讓露營體驗更加舒適。每個木棧板區域都經過精心設計，提供絕佳的視野。</p>
+                    
+                    <div class="site-features">
+                        <h4>營位特色：</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> 高架木棧板設計，不怕地面潮濕</li>
+                            <li><i class="fas fa-check-circle"></i> 每個營位約12坪空間，附帳篷固定點</li>
+                            <li><i class="fas fa-check-circle"></i> 配備獨立營火區和堅固的木製野餐桌</li>
+                            <li><i class="fas fa-check-circle"></i> 每個營位配有專屬電源插座</li>
+                            <li><i class="fas fa-check-circle"></i> 部分營位可遠眺山景或河景</li>
+                            <li><i class="fas fa-check-circle"></i> 鄰近公共烤肉區，方便準備美味餐點</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="site-price">
+                        <div class="site-price-title">價格資訊：</div>
+                        <p>平日：NT$ 1,500 / 帳 / 晚<br>
+                        週末及國定假日：NT$ 1,800 / 帳 / 晚<br>
+                        (最多可容納4位成人，額外每人加收NT$ 300)</p>
+                    </div>
+                    
+                    <div class="site-cta">
+                        <a href="booking.html" class="btn">立即預訂</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rv" class="site-section">
+        <div class="container">
+            <h2 class="section-title">露營車營位</h2>
+            <div class="site-container">
+                <div class="site-details">
+                    <h3>全配備的露營車空間</h3>
+                    <p>為露營車和露營拖車設計的專屬區域，提供完整的水電接口和排水設施。這些營位位於露營區較為平坦的外圍，方便進出，同時保有私密性和寧靜感。</p>
+                    
+                    <div class="site-features">
+                        <h4>營位特色：</h4>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> 平整的碎石地面，適合露營車和拖車停靠</li>
+                            <li><i class="fas fa-check-circle"></i> 提供30A電力接口、自來水接口和排水設施</li>
+                            <li><i class="fas fa-check-circle"></i> 每個營位約20坪空間，含車位和活動區</li>
+                            <li><i class="fas fa-check-circle"></i> 配備遮陽棚、固定式烤肉爐和野餐桌</li>
+                            <li><i class="fas fa-check-circle"></i> 便利的垃圾收集點和回收設施</li>
+                            <li><i class="fas fa-check-circle"></i> 鄰近共用洗衣設施</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="site-price">
+                        <div class="site-price-title">價格資訊：</div>
+                        <p>平日：NT$ 2,000 / 晚<br>
+                        週末及國定假日：NT$ 2,300 / 晚<br>
+                        (最多可容納6位成人，額外每人加收NT$ 300)</p>
+                    </div>
+                    
+                    <div class="site-cta">
+                        <a href="booking.html" class="btn">立即預訂</a>
+                    </div>
+                </div>
+                <div class="site-gallery">
+                    <img src="images/rv-site-main.jpg" alt="露營車營位" id="rv-main-image">
+                    <div class="site-gallery-thumbnails">
+                        <div class="thumbnail" onclick="document.getElementById('rv-main-image').src='images/rv-site-1.jpg'">
+                            <img src="images/rv-site-1.jpg" alt="露營車營位夜景">
+                        </div>
+                        <div class="thumbnail" onclick="document.getElementById('rv-main-image').src='images/rv-site-2.jpg'">
+                            <img src="images/rv-site-2.jpg" alt="露營車營位日景">
+                        </div>
+                        <div class="thumbnail" onclick="document.getElementById('rv-main-image').src='images/rv-site-3.jpg'">
+                            <img src="images/rv-site-3.jpg" alt="露營車營位全景">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section">
+        <div class="container">
+            <h2 class="section-title">營位位置圖</h2>
+            <div style="text-align: center; margin-top: 40px;">
+                <img src="images/campsite-map.jpg" alt="營位位置圖" style="max-width: 100%; border-radius: 8px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <p>查看各營位在露營區內的分佈位置，幫助您選擇理想的營位。</p>
+                <div style="margin-top: 20px;">
+                    <a href="booking.html" class="btn">立即預訂</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>寶山葡萄藤露營區</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 新竹市寶山</p>
+                    <p><i class="fas fa-phone"></i> (02) 2663-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@foreststar-camping.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>快速連結</h3>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="faq.html">常見問題</a></li>
+                        <li><a href="policy.html">營區規範</a></li>
+                        <li><a href="privacy.html">隱私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>關注我們</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 寶山葡萄藤露營區。保留所有權利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html> 

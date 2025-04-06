@@ -1,0 +1,1016 @@
+/* 全局樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "微軟正黑體", "Microsoft JhengHei", Arial, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f9f9f9;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2.2rem;
+    color: #2c3e50;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: #4CAF50;
+}
+
+.btn {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #388E3C;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-small {
+    padding: 8px 20px;
+    font-size: 0.9rem;
+}
+
+/* 頁頭導航 */
+header {
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+}
+
+.text-logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #6a1b9a;
+    background-color: #f3e5f5;
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin-right: 10px;
+    border: 1px solid #6a1b9a;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    width: 45px;
+    height: 45px;
+    margin-right: 10px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.logo h1 {
+    font-size: 1.8rem;
+    color: #4CAF50;
+    margin: 0;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li {
+    margin-left: 25px;
+}
+
+nav ul li a {
+    font-weight: 600;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #4CAF50;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+nav ul li a.booking-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+}
+
+nav ul li a.booking-btn:hover {
+    background-color: #388E3C;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+nav ul li a.booking-btn::after {
+    display: none;
+}
+
+/* 英雄區 */
+.hero {
+    height: 50vh;
+    background-image: url('images/體驗大自然的寧靜與美好1.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 1s ease;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero-content h1 {
+    font-size: 2.8rem;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* 特色區塊 */
+.features {
+    padding: 100px 0;
+    background-color: white;
+}
+
+.feature-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.feature-box {
+    flex: 0 0 calc(25% - 40px);
+    text-align: center;
+    padding: 45px 25px;
+    margin-bottom: 40px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+}
+
+.feature-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 3.5rem;
+    color: #4CAF50;
+    margin-bottom: 25px;
+}
+
+.feature-box h3 {
+    font-size: 1.6rem;
+    margin-bottom: 18px;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.feature-box p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.feature-link-box {
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    padding-bottom: 50px;
+}
+
+.feature-link-box:hover {
+    transform: translateY(-10px);
+    background-color: #f5f8fa;
+}
+
+.feature-link {
+    position: absolute;
+    bottom: 25px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #4CAF50;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.feature-link span {
+    margin-right: 5px;
+}
+
+.feature-link i {
+    transition: transform 0.3s ease;
+}
+
+.feature-link-box:hover .feature-link i {
+    transform: translateX(5px);
+}
+
+/* 營位類型區塊 */
+.camping-sites {
+    padding: 80px 0;
+    background-color: #f5f8fa;
+}
+
+/* 日曆樣式 */
+.calendar {
+    margin-top: 30px;
+    padding: 15px 0;
+}
+
+.availability-legend {
+    display: flex;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.legend-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 3px;
+    margin-right: 5px;
+}
+
+.legend-color.available {
+    background-color: #4CAF50;
+}
+
+.legend-color.limited {
+    background-color: #FFC107;
+}
+
+.legend-color.unavailable {
+    background-color: #F44336;
+}
+
+#availability-calendar {
+    max-width: 100%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    font-size: 0.9rem;
+}
+
+#availability-calendar .fc-toolbar-title {
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+#availability-calendar .fc-button {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    font-size: 0.85rem;
+    padding: 0.3em 0.65em;
+}
+
+#availability-calendar .fc-button:hover {
+    background-color: #388E3C;
+    border-color: #388E3C;
+}
+
+#availability-calendar .fc-button-primary:not(:disabled).fc-button-active,
+#availability-calendar .fc-button-primary:not(:disabled):active {
+    background-color: #388E3C;
+    border-color: #2E7D32;
+}
+
+#availability-calendar .fc-day-today {
+    background-color: rgba(76, 175, 80, 0.1) !important;
+}
+
+#availability-calendar .fc-daygrid-day {
+    height: 60px !important;
+}
+
+#availability-calendar .fc-scrollgrid-sync-table {
+    height: auto !important;
+}
+
+#availability-calendar .fc-daygrid-day-number {
+    padding: 4px 8px;
+    color: #555;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+#availability-calendar .fc-col-header-cell {
+    background-color: #f5f8fa;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+#availability-calendar .fc-daygrid-day-top {
+    justify-content: center;
+    padding-top: 4px;
+}
+
+#availability-calendar .fc-daygrid-day-events {
+    padding: 0 2px;
+    min-height: 2.2em;
+    max-height: 2.2em;
+    overflow: hidden;
+}
+
+#availability-calendar .fc-event {
+    font-size: 0.8rem;
+    line-height: 1.3;
+    padding: 2px 4px;
+    margin: 0 !important;
+    text-align: center;
+}
+
+#availability-calendar .fc-daygrid-day-frame {
+    min-height: 60px;
+    max-height: 60px;
+    height: 60px;
+}
+
+#availability-calendar tr {
+    height: 60px;
+}
+
+#availability-calendar td, 
+#availability-calendar th {
+    box-sizing: border-box;
+}
+
+#availability-calendar .fc-daygrid-body {
+    width: 100% !important;
+}
+
+#availability-calendar .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+    position: relative !important;
+    min-height: 2.2em !important;
+}
+
+#availability-calendar table, 
+#availability-calendar .fc-scrollgrid-sync-table,
+#availability-calendar .fc-scrollgrid-sync-inner,
+#availability-calendar .fc-daygrid-body,
+#availability-calendar .fc-daygrid-body table {
+    width: 100% !important;
+}
+
+#availability-calendar .fc-scroller {
+    overflow: hidden !important;
+}
+
+#availability-calendar .fc-daygrid-day.fc-day-past {
+    opacity: 0.7;
+}
+
+@media screen and (max-width: 768px) {
+    #availability-calendar .fc-toolbar {
+        flex-direction: column;
+    }
+    
+    #availability-calendar .fc-toolbar-chunk {
+        margin-bottom: 10px;
+    }
+}
+
+.site-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.site-box {
+    flex: 0 0 calc(33.333% - 20px);
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.site-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.site-box img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.site-box h3 {
+    padding: 20px 20px 10px;
+    color: #2c3e50;
+}
+
+.site-box p {
+    padding: 0 20px 20px;
+    color: #666;
+}
+
+.site-box .btn-small {
+    margin: 0 20px 20px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* 評價區塊 */
+.testimonials {
+    padding: 80px 0;
+    background-color: white;
+}
+
+.testimonial-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.testimonial {
+    flex: 0 0 calc(33.333% - 20px);
+    background-color: #f5f8fa;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.testimonial::before {
+    content: '"';
+    position: absolute;
+    top: 10px;
+    left: 15px;
+    font-size: 60px;
+    color: rgba(76, 175, 80, 0.2);
+    font-family: serif;
+}
+
+.stars {
+    color: #FFD700;
+    margin-bottom: 15px;
+}
+
+.testimonial p {
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
+.testimonial-author {
+    font-weight: bold;
+    color: #4CAF50;
+}
+
+/* 預訂資訊區 */
+.booking-info {
+    padding: 60px 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/booking-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    text-align: center;
+}
+
+.booking-content h2 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.booking-content p {
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 頁尾 */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    padding: 60px 0 20px;
+}
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.footer-info, .footer-links, .footer-social {
+    flex: 1;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.footer-info h3, .footer-links h3, .footer-social h3 {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #4CAF50;
+}
+
+.footer-info p {
+    margin-bottom: 10px;
+}
+
+.footer-info i {
+    margin-right: 10px;
+    color: #4CAF50;
+}
+
+.footer-links ul li {
+    margin-bottom: 10px;
+}
+
+.footer-links ul li a {
+    color: #ddd;
+    transition: color 0.3s ease;
+}
+
+.footer-links ul li a:hover {
+    color: #4CAF50;
+}
+
+.social-icons {
+    display: flex;
+}
+
+.social-icons a {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #4CAF50;
+    transform: translateY(-3px);
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 最新消息區塊樣式 */
+.news-section {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.news-container {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.news-item {
+    flex: 0 0 calc(33.33% - 20px);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    overflow: hidden;
+    display: flex;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.news-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.news-date {
+    width: 80px;
+    min-width: 80px;
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 0;
+}
+
+.news-date .day {
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.news-date .month {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.news-content {
+    padding: 20px;
+    flex-grow: 1;
+}
+
+.news-content h3 {
+    margin-bottom: 10px;
+    color: #2c3e50;
+    font-size: 1.2rem;
+}
+
+.news-content p {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.news-link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.news-link i {
+    margin-left: 5px;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.news-link:hover {
+    color: #388E3C;
+}
+
+.news-link:hover i {
+    transform: translateX(3px);
+}
+
+/* 貼心提醒區塊樣式 */
+.reminder-section {
+    padding: 80px 0;
+    background-color: #fff;
+}
+
+.reminder-container {
+    margin-top: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.reminder-item {
+    flex: 0 0 calc(33.33% - 20px);
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    padding: 25px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reminder-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.reminder-icon {
+    min-width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: rgba(76, 175, 80, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.reminder-icon i {
+    font-size: 1.5rem;
+    color: #4CAF50;
+}
+
+.reminder-content {
+    flex-grow: 1;
+}
+
+.reminder-content h3 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.reminder-content p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+/* 左右資訊區塊 */
+.info-sections {
+    padding: 80px 0;
+    background-color: #f9f9f9;
+}
+
+.info-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.info-column {
+    flex: 0 0 48%;
+    margin-bottom: 30px;
+}
+
+.info-column .section-title {
+    margin-bottom: 30px;
+}
+
+.info-column .news-container,
+.info-column .reminder-container {
+    margin-top: 0;
+}
+
+.info-column .news-item,
+.info-column .reminder-item {
+    flex: 0 0 100%;
+}
+
+/* 調整最新消息樣式 */
+.news-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 調整提醒區塊樣式 */
+.reminder-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* 響應式設計調整 */
+@media screen and (max-width: 992px) {
+    .info-column {
+        flex: 0 0 100%;
+    }
+    
+    .feature-box {
+        flex: 0 0 calc(50% - 30px);
+    }
+    
+    .site-box, .testimonial {
+        flex: 0 0 calc(50% - 15px);
+    }
+    
+    .news-item, .reminder-item {
+        flex: 0 0 100%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+    }
+    
+    nav {
+        margin-top: 15px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    nav ul li {
+        margin: 5px 10px;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .feature-box {
+        flex: 0 0 100%;
+        margin-bottom: 30px;
+        padding: 35px 20px;
+    }
+    
+    .feature-icon {
+        font-size: 3rem;
+    }
+    
+    .feature-box h3 {
+        font-size: 1.5rem;
+    }
+    
+    .footer-info, .footer-links, .footer-social {
+        flex: 0 0 100%;
+        margin-right: 0;
+    }
+    
+    .news-item, .reminder-item {
+        flex: 0 0 100%;
+    }
+}
+
+/* 頁面導航圖示 */
+.page-icons {
+    position: fixed;
+    top: 90px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 100;
+}
+
+.page-icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #333;
+    font-size: 1.5rem;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.nav-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    margin: 0 5px; /* 統一間隔 */
+    color: #4CAF50;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.nav-icon:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+    transform: translateY(-2px);
+}
+
+.nav-icon i {
+    font-size: 1.2rem;
+}
+
+.page-icon:hover {
+    transform: translateY(-3px);
+    background-color: #4CAF50;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.page-icon-tooltip {
+    position: absolute;
+    right: 60px;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.page-icon:hover .page-icon-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+@media screen and (max-width: 768px) {
+    .page-icons {
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        flex-direction: row;
+    }
+    
+    .page-icon-tooltip {
+        display: none;
+    }
+} 

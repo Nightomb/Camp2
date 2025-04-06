@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="寶山葡萄藤露營區 - 位於新竹市寶山，提供優質露營體驗，各種營位選擇與豐富活動。遠離都市喧囂，擁抱山林之美。">
+    <meta name="keywords" content="露營,新竹露營,寶山,露營區,葡萄藤,帳篷,木棧板,山林,戶外活動">
+    <meta name="author" content="寶山葡萄藤露營區">
+    <title>寶山葡萄藤露營區 - 與大自然共度美好時光</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="favicon.ico">
+    <meta name="theme-color" content="#4CAF50">
+    <!-- Google Cloud 整合 -->
+    <script src="gcloud-config.js"></script>
+    <style>
+        /* 頂部放大樣式 */
+        .logo-img {
+            width: 75px;  /* 原本大約是50px */
+            height: auto;
+        }
+        
+        header h1 {
+            font-size: 2.25rem;  /* 原本大約是1.5rem */
+        }
+
+        /* 導航圖示樣式 */
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+        }
+        
+        .nav-icon {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 52px;  /* 原本35px */
+            height: 52px;  /* 原本35px */
+            margin: 0 5px;  /* 統一間隔 */
+            color: #4CAF50;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-icon:hover {
+            background-color: rgba(76, 175, 80, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .nav-icon i {
+            font-size: 1.8rem;  /* 原本1.2rem */
+        }
+        
+        .nav-icon-tooltip {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-size: 1.05rem;  /* 原本0.7rem */
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+        
+        .nav-icon:hover .nav-icon-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .booking-btn, header nav ul li a {
+            font-size: 1.2rem;  /* 原本大約是0.8rem */
+            padding: 12px 24px;  /* 增加padding */
+        }
+        
+        @media screen and (max-width: 768px) {
+            .nav-icons {
+                margin-right: 0;
+            }
+            
+            .nav-icon {
+                width: 45px;
+                height: 45px;
+                margin: 0 3px;
+            }
+            
+            .nav-icon-tooltip {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 0;">
+            <div class="logo" style="display: flex; align-items: center;">
+                <img src="images/葡萄藤L.png" alt="葡萄藤L" class="logo-img">
+                <h1 style="margin-left: 15px;"><a href="index.html" style="color: inherit; text-decoration: none;">寶山葡萄藤露營區</a></h1>
+            </div>
+            <nav>
+                <ul style="display: flex; align-items: center; margin: 0; padding: 0;">
+                    <li class="nav-icons">
+                        <a href="landscape.html" class="nav-icon">
+                            <i class="fas fa-mountain"></i>
+                            <span class="nav-icon-tooltip">絕美景觀</span>
+                        </a>
+                        <a href="camping-sites.html" class="nav-icon">
+                            <i class="fas fa-campground"></i>
+                            <span class="nav-icon-tooltip">多樣營位</span>
+                        </a>
+                        <a href="facilities.html" class="nav-icon">
+                            <i class="fas fa-shower"></i>
+                            <span class="nav-icon-tooltip">完善設施</span>
+                        </a>
+                        <a href="activities.html" class="nav-icon">
+                            <i class="fas fa-hiking"></i>
+                            <span class="nav-icon-tooltip">豐富活動</span>
+                        </a>
+                    </li>
+                    <li><a href="booking.html" class="booking-btn">立即預訂</a></li>
+                    <li><a href="admin.html">聯絡我們</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero big-image-area">
+        <div class="overlay"></div>
+        <div class="hero-content">
+            <h1>體驗大自然的寧靜與美好</h1>
+            <p>在寶山葡萄藤露營區，讓您遠離都市喧囂，擁抱山林之美</p>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="feature-container">
+                <div class="feature-box feature-link-box" onclick="window.location.href='landscape.html'">
+                    <div class="feature-icon">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3>絕美景觀</h3>
+                    <p>坐擁山林美景，清晨可見雲海，夜晚能觀星空</p>
+                    <div class="feature-link">
+                        <span>觀賞自然景觀</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="feature-box feature-link-box" onclick="window.location.href='camping-sites.html'">
+                    <div class="feature-icon">
+                        <i class="fas fa-campground"></i>
+                    </div>
+                    <h3>多樣營位</h3>
+                    <p>提供草地、木棧板、露營車等多種露營選擇</p>
+                    <div class="feature-link">
+                        <span>查看營位介紹</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="feature-box feature-link-box" onclick="window.location.href='facilities.html'">
+                    <div class="feature-icon">
+                        <i class="fas fa-shower"></i>
+                    </div>
+                    <h3>完善設施</h3>
+                    <p>乾淨的衛浴設施，溫水淋浴，廚房區域和餐飲服務</p>
+                    <div class="feature-link">
+                        <span>查看設施服務</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="feature-box feature-link-box" onclick="window.location.href='activities.html'">
+                    <div class="feature-icon">
+                        <i class="fas fa-hiking"></i>
+                    </div>
+                    <h3>豐富活動</h3>
+                    <p>森林步道、生態導覽、夜間觀星、兒童遊樂區</p>
+                    <div class="feature-link">
+                        <span>享受悠閒活動</span>
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="info-sections">
+        <div class="container">
+            <div class="info-container" style="display: flex; flex-direction: row; justify-content: space-between; gap: 30px;">
+                <!-- 最新消息區塊 -->
+                <div class="info-box" style="flex: 1; margin-right: 0; background-color: #f9f9f9; border-radius: 10px; padding: 25px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); border-top: 4px solid #4CAF50;">
+                    <h2 style="color: #2c3e50; font-size: 1.8rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e9e9e9;">
+                        <i class="fas fa-bullhorn" style="color: #4CAF50; margin-right: 10px;"></i>最新消息
+                    </h2>
+                    <ul class="info-list" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; margin-bottom: 20px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: transform 0.2s ease;">
+                            <div class="info-icon" style="background-color: #e8f5e9; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                <i class="fas fa-star" style="color: #4CAF50; font-size: 1.3rem;"></i>
+                            </div>
+                            <div class="info-text">
+                                <h3 style="margin: 0 0 8px 0; color: #2c3e50; font-size: 1.2rem;">特別活動：暑假親子露營體驗週</h3>
+                                <p style="margin: 0; color: #666; line-height: 1.5;">7/1-8/31期間，週二至週四入住享有特別親子活動，包含夜間觀星、生態導覽及手作DIY體驗。</p>
+                            </div>
+                        </li>
+                        <li style="display: flex; margin-bottom: 20px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: transform 0.2s ease;">
+                            <div class="info-icon" style="background-color: #fff3e0; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                <i class="fas fa-gift" style="color: #FF9800; font-size: 1.3rem;"></i>
+                            </div>
+                            <div class="info-text">
+                                <h3 style="margin: 0 0 8px 0; color: #2c3e50; font-size: 1.2rem;">早鳥優惠</h3>
+                                <p style="margin: 0; color: #666; line-height: 1.5;">提前30天預訂，所有營位類型享有85折優惠。數量有限，請把握機會。</p>
+                            </div>
+                        </li>
+                        <li style="display: flex; margin-bottom: 0; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: transform 0.2s ease;">
+                            <div class="info-icon" style="background-color: #e3f2fd; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                <i class="fas fa-campground" style="color: #2196F3; font-size: 1.3rem;"></i>
+                            </div>
+                            <div class="info-text">
+                                <h3 style="margin: 0 0 8px 0; color: #2c3e50; font-size: 1.2rem;">新增露營車專屬區域</h3>
+                                <p style="margin: 0; color: #666; line-height: 1.5;">我們新增了5個露營車專用營位，每個營位皆配備獨立供電與供水設施，提供更優質的露營體驗。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- 貼心提醒區塊 -->
+                <div class="info-box" style="flex: 1; margin-left: 0; background-color: #f9f9f9; border-radius: 10px; padding: 25px; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); border-top: 4px solid #FF9800;">
+                    <h2 style="color: #2c3e50; font-size: 1.8rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #e9e9e9;">
+                        <i class="fas fa-bell" style="color: #FF9800; margin-right: 10px;"></i>貼心提醒
+                    </h2>
+                    <ul class="info-list" style="list-style: none; padding: 0; margin: 0;">
+                        <li style="display: flex; margin-bottom: 20px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: transform 0.2s ease;">
+                            <div class="info-icon" style="background-color: #ffebee; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                <i class="fas fa-exclamation-circle" style="color: #F44336; font-size: 1.3rem;"></i>
+                            </div>
+                            <div class="info-text">
+                                <h3 style="margin: 0 0 8px 0; color: #2c3e50; font-size: 1.2rem;">週末提前預訂</h3>
+                                <p style="margin: 0; color: #666; line-height: 1.5;">週五至週日及國定假日營位通常會提前一個月售罄，建議提早規劃您的行程。</p>
+                            </div>
+                        </li>
+                        <li style="display: flex; margin-bottom: 20px; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: transform 0.2s ease;">
+                            <div class="info-icon" style="background-color: #e8eaf6; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                <i class="fas fa-cloud-rain" style="color: #3F51B5; font-size: 1.3rem;"></i>
+                            </div>
+                            <div class="info-text">
+                                <h3 style="margin: 0 0 8px 0; color: #2c3e50; font-size: 1.2rem;">雨季注意事項</h3>
+                                <p style="margin: 0; color: #666; line-height: 1.5;">每年5-6月為雨季，建議攜帶防水用具及雨衣。我們也提供有限的雨具租借服務。</p>
+                            </div>
+                        </li>
+                        <li style="display: flex; margin-bottom: 0; background-color: #fff; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: transform 0.2s ease;">
+                            <div class="info-icon" style="background-color: #e0f2f1; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; flex-shrink: 0;">
+                                <i class="fas fa-map-marked-alt" style="color: #009688; font-size: 1.3rem;"></i>
+                            </div>
+                            <div class="info-text">
+                                <h3 style="margin: 0 0 8px 0; color: #2c3e50; font-size: 1.2rem;">交通資訊更新</h3>
+                                <p style="margin: 0; color: #666; line-height: 1.5;">營區聯外道路已完成整修，開車前往更加便利。GPS導航時請特別留意我們網站提供的正確座標。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-info">
+        <div class="container">
+            <div class="booking-content">
+                <h2>預訂您的露營體驗</h2>
+                <p>提前預訂以確保您心儀的營位，我們期待您的光臨！</p>
+                <a href="booking.html" class="btn">查看可預訂日期</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>寶山葡萄藤露營區</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 新竹市寶山</p>
+                    <p><i class="fas fa-phone"></i> (02) 2663-XXXX</p>
+                    <p><i class="fas fa-envelope"></i> info@foreststar-camping.com</p>
+                </div>
+                <div class="footer-links">
+                    <h3>快速連結</h3>
+                    <ul>
+                        <li><a href="about.html">關於我們</a></li>
+                        <li><a href="faq.html">常見問題</a></li>
+                        <li><a href="policy.html">營區規範</a></li>
+                        <li><a href="privacy.html">隱私政策</a></li>
+                    </ul>
+                </div>
+                <div class="footer-social">
+                    <h3>關注我們</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 寶山葡萄藤露營區。保留所有權利。</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 引入假資料庫載入腳本 -->
+    <script src="data/FAKE/loadFakeData.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // 確保假資料已載入
+        if (!window.fakeCampData.isLoaded()) {
+          window.fakeCampData.init().then(() => {
+            updateHomePageInfo();
+          });
+        } else {
+          updateHomePageInfo();
+        }
+
+        // 更新首頁資訊
+        function updateHomePageInfo() {
+          // 從假資料庫中讀取資料
+          const availabilityData = JSON.parse(localStorage.getItem('availabilityData') || '[]');
+          const bookingsData = JSON.parse(localStorage.getItem('campingBookings') || '[]');
+          
+          // 首頁即時營位資訊已移除
+        }
+        
+        // 如果在開發環境中，顯示環境指示器
+        if (window.envTool && window.envTool.isDevMode()) {
+          const envIndicator = document.createElement('div');
+          envIndicator.style.position = 'fixed';
+          envIndicator.style.bottom = '10px';
+          envIndicator.style.right = '10px';
+          envIndicator.style.backgroundColor = 'rgba(255, 0, 0, 0.7)';
+          envIndicator.style.color = 'white';
+          envIndicator.style.padding = '5px 10px';
+          envIndicator.style.borderRadius = '5px';
+          envIndicator.style.fontSize = '12px';
+          envIndicator.style.fontWeight = 'bold';
+          envIndicator.style.zIndex = '9999';
+          envIndicator.style.cursor = 'pointer';
+          envIndicator.textContent = '開發環境 (使用假資料)';
+          
+          envIndicator.addEventListener('click', function() {
+            if (window.envTool.toggleDevMode) {
+              window.envTool.toggleDevMode();
+            }
+          });
+          
+          document.body.appendChild(envIndicator);
+        }
+      });
+    </script>
+</body>
+</html> 

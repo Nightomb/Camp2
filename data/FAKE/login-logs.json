@@ -1,0 +1,92 @@
+[
+  {
+    "id": "LOG20240525-0930",
+    "username": "admin",
+    "name": "寶山營主",
+    "ip": "192.168.1.100",
+    "timestamp": "2024-05-25T09:30:00.000Z",
+    "status": "success",
+    "details": "成功登入"
+  },
+  {
+    "id": "LOG20240525-0845",
+    "username": "reception",
+    "name": "林小美",
+    "ip": "192.168.1.105",
+    "timestamp": "2024-05-25T08:45:00.000Z",
+    "status": "success",
+    "details": "成功登入"
+  },
+  {
+    "id": "LOG20240524-1815",
+    "username": "staff01",
+    "name": "王小明",
+    "ip": "192.168.1.120",
+    "timestamp": "2024-05-24T18:15:00.000Z",
+    "status": "success",
+    "details": "成功登入"
+  },
+  {
+    "id": "LOG20240524-0312",
+    "username": "unknown",
+    "name": "",
+    "ip": "203.75.54.32",
+    "timestamp": "2024-05-24T03:12:00.000Z",
+    "status": "failure",
+    "details": "密碼錯誤 (3次嘗試)"
+  },
+  {
+    "id": "LOG20240523-1622",
+    "username": "reception",
+    "name": "林小美",
+    "ip": "192.168.1.105",
+    "timestamp": "2024-05-23T16:22:00.000Z",
+    "status": "success",
+    "details": "成功修改密碼"
+  },
+  {
+    "id": "LOG20240523-1030",
+    "username": "admin",
+    "name": "寶山營主",
+    "ip": "192.168.1.100",
+    "timestamp": "2024-05-23T10:30:00.000Z",
+    "status": "success",
+    "details": "變更用戶 staff01 權限"
+  },
+  {
+    "id": "LOG20240522-1145",
+    "username": "staff01",
+    "name": "王小明",
+    "ip": "192.168.1.120",
+    "timestamp": "2024-05-22T11:45:00.000Z",
+    "status": "success",
+    "details": "成功登入"
+  },
+  {
+    "id": "LOG20240521-0930",
+    "username": "admin",
+    "name": "寶山營主",
+    "ip": "192.168.1.100",
+    "timestamp": "2024-05-21T09:30:00.000Z",
+    "status": "success",
+    "details": "成功登入"
+  },
+  {
+    "id": "LOG20240520-1530",
+    "username": "reception",
+    "name": "林小美",
+    "ip": "192.168.1.105",
+    "timestamp": "2024-05-20T15:30:00.000Z",
+    "status": "success",
+    "details": "成功登入"
+  },
+  {
+    "id": "LOG20240520-0845",
+    "username": "unknown",
+    "name": "",
+    "ip": "203.75.54.32",
+    "timestamp": "2024-05-20T08:45:00.000Z",
+    "status": "failure",
+    "details": "帳號不存在"
+  }
+] 

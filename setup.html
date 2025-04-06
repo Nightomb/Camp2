@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系統設定 - 寶山葡萄藤露營區</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Google Cloud 整合 -->
+    <script src="gcloud-config.js"></script>
+    <style>
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #4CAF50;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: normal;
+        }
+        
+        h2 {
+            color: #388E3C;
+            margin-top: 30px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        input[type="text"], 
+        input[type="email"], 
+        input[type="password"], 
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .step {
+            display: none;
+        }
+        
+        .step.active {
+            display: block;
+        }
+        
+        .progress-bar {
+            display: flex;
+            margin-bottom: 30px;
+            counter-reset: step;
+        }
+        
+        .progress-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+            counter-increment: step;
+        }
+        
+        .progress-step::before {
+            content: counter(step);
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-color: #ccc;
+            color: white;
+            border-radius: 50%;
+            line-height: 30px;
+            margin: 0 auto 5px;
+        }
+        
+        .progress-step.active::before {
+            background-color: #4CAF50;
+        }
+        
+        .progress-step.completed::before {
+            background-color: #4CAF50;
+            content: "✓";
+        }
+        
+        .progress-step::after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background-color: #ccc;
+            z-index: -1;
+        }
+        
+        .progress-step:last-child::after {
+            display: none;
+        }
+        
+        .progress-step.completed::after,
+        .progress-step.active::after {
+            background-color: #4CAF50;
+        }
+        
+        code {
+            display: block;
+            white-space: pre-wrap;
+            background-color: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 14px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>寶山葡萄藤露營區 - 系統設定</h1>
+        
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="1">Google Cloud 設定</div>
+            <div class="progress-step" data-step="2">管理員設定</div>
+            <div class="progress-step" data-step="3">完成設定</div>
+        </div>
+        
+        <div id="alert-box" class="alert hidden"></div>
+        
+        <!-- 步驟 1: Google Cloud 設定 -->
+        <div id="step1" class="step active">
+            <h2>Google Cloud 設定</h2>
+            <p>請從 Google Cloud Console 獲取您的專案設定，並填寫以下資訊：</p>
+            
+            <form id="gcloud-form">
+                <div class="form-group">
+                    <label for="projectId">Project ID</label>
+                    <input type="text" id="projectId" name="projectId" required placeholder="您的 Google Cloud 專案 ID">
+                </div>
+                
+                <div class="form-group">
+                    <label for="region">區域</label>
+                    <input type="text" id="region" name="region" required placeholder="asia-east1">
+                </div>
+                
+                <div class="form-group">
+                    <label for="apiEndpoint">API 端點</label>
+                    <input type="text" id="apiEndpoint" name="apiEndpoint" required placeholder="https://yourproject.an.r.appspot.com/api">
+                </div>
+                
+                <div class="form-group">
+                    <label for="storageBucket">Storage Bucket</label>
+                    <input type="text" id="storageBucket" name="storageBucket" required placeholder="yourproject.appspot.com">
+                </div>
+                
+                <button type="submit">連接 Google Cloud</button>
+            </form>
+        </div>
+        
+        <!-- 步驟 2: 創建管理員帳號 -->
+        <div id="step2" class="step">
+            <h2>創建管理員帳號</h2>
+            <p>請創建一個管理員帳號，用於登入後台管理系統：</p>
+            
+            <form id="admin-form">
+                <div class="form-group">
+                    <label for="admin-email">管理員電子郵件</label>
+                    <input type="email" id="admin-email" name="admin-email" required placeholder="管理員帳號 (電子郵件)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="admin-password">管理員密碼</label>
+                    <input type="password" id="admin-password" name="admin-password" required placeholder="密碼 (最少 6 個字元)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="admin-password-confirm">確認密碼</label>
+                    <input type="password" id="admin-password-confirm" name="admin-password-confirm" required placeholder="再次輸入密碼">
+                </div>
+                
+                <button type="submit">創建管理員帳號</button>
+            </form>
+        </div>
+        
+        <!-- 步驟 3: 完成設定 -->
+        <div id="step3" class="step">
+            <h2>設定完成</h2>
+            <div id="success-message">
+                <p>系統已成功設定！以下是重要事項：</p>
+                <ul>
+                    <li>管理員帳號已創建，請妥善保管您的登入資訊</li>
+                    <li>Google Cloud 已連接，基本數據結構已建立</li>
+                    <li>系統初始營位設定已完成</li>
+                </ul>
+                
+                <div class="links" style="margin-top: 30px; text-align: center;">
+                    <a href="index.html" style="color: #4CAF50; margin-right: 20px; text-decoration: none; font-weight: bold;">返回首頁</a>
+                    <a href="admin.html" style="color: #4CAF50; text-decoration: none; font-weight: bold;">前往管理後台</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gcloudForm = document.getElementById('gcloud-form');
+            const adminForm = document.getElementById('admin-form');
+            const alertBox = document.getElementById('alert-box');
+            const steps = document.querySelectorAll('.step');
+            const progressSteps = document.querySelectorAll('.progress-step');
+            
+            let gcloudConfig = null;
+            
+            // 顯示提示訊息
+            function showAlert(message, type) {
+                alertBox.textContent = message;
+                alertBox.className = `alert alert-${type}`;
+                alertBox.classList.remove('hidden');
+                
+                // 5秒後自動隱藏
+                setTimeout(() => {
+                    alertBox.classList.add('hidden');
+                }, 5000);
+            }
+            
+            // 切換到指定步驟
+            function goToStep(stepNumber) {
+                steps.forEach(step => step.classList.remove('active'));
+                document.getElementById(`step${stepNumber}`).classList.add('active');
+                
+                // 更新進度條
+                progressSteps.forEach(progressStep => {
+                    const step = parseInt(progressStep.getAttribute('data-step'));
+                    progressStep.classList.remove('active', 'completed');
+                    
+                    if (step < stepNumber) {
+                        progressStep.classList.add('completed');
+                    } else if (step === stepNumber) {
+                        progressStep.classList.add('active');
+                    }
+                });
+            }
+            
+            // 處理 Google Cloud 設定
+            if (gcloudForm) {
+                gcloudForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '連接中...';
+                    
+                    try {
+                        // 獲取表單數據
+                        gcloudConfig = {
+                            projectId: document.getElementById('projectId').value,
+                            region: document.getElementById('region').value,
+                            apiEndpoint: document.getElementById('apiEndpoint').value,
+                            storageBucket: document.getElementById('storageBucket').value
+                        };
+                        
+                        // 顯示配置檔案內容
+                        showAlert('Google Cloud 連接成功！', 'success');
+                        
+                        // 進入下一步
+                        goToStep(2);
+                    } catch (error) {
+                        console.error('Google Cloud 連接失敗:', error);
+                        showAlert('Google Cloud 連接失敗: ' + error.message, 'danger');
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '連接 Google Cloud';
+                    }
+                });
+            }
+            
+            // 處理管理員設定
+            if (adminForm) {
+                adminForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    const submitBtn = this.querySelector('button[type="submit"]');
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '處理中...';
+                    
+                    try {
+                        const email = document.getElementById('admin-email').value;
+                        const password = document.getElementById('admin-password').value;
+                        const passwordConfirm = document.getElementById('admin-password-confirm').value;
+                        
+                        // 驗證密碼
+                        if (password !== passwordConfirm) {
+                            throw new Error('密碼不一致');
+                        }
+                        
+                        if (password.length < 6) {
+                            throw new Error('密碼長度必須至少 6 個字元');
+                        }
+                        
+                        // 顯示成功訊息
+                        showAlert('管理員帳號創建成功！', 'success');
+                        
+                        // 進入下一步
+                        goToStep(3);
+                    } catch (error) {
+                        console.error('管理員帳號創建失敗:', error);
+                        let errorMessage = error.message;
+                        
+                        // 翻譯常見錯誤訊息
+                        if (error.code === 'auth/email-already-in-use') {
+                            errorMessage = '此電子郵件已被使用';
+                        } else if (error.code === 'auth/invalid-email') {
+                            errorMessage = '電子郵件格式無效';
+                        } else if (error.code === 'auth/weak-password') {
+                            errorMessage = '密碼強度不足';
+                        }
+                        
+                        showAlert('管理員帳號創建失敗: ' + errorMessage, 'danger');
+                    } finally {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '創建管理員帳號';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,31 @@
+runtime: nodejs20
+service: default
+
+handlers:
+- url: /images
+  static_dir: images
+  secure: always
+
+- url: /styles.css
+  static_files: styles.css
+  upload: styles.css
+  secure: always
+
+- url: /(.*\.(js|ico|json))$
+  static_files: \1
+  upload: .*\.(js|ico|json)$
+  secure: always
+
+- url: /
+  static_files: index.html
+  upload: index.html
+  secure: always
+
+- url: /.*
+  script: auto
+  secure: always
+
+env_variables:
+  NODE_ENV: "production"
+  STORAGE_BUCKET: "camp2-68e3b.appspot.com"
+  FIRESTORE_PROJECT_ID: "camp2-68e3b" 
